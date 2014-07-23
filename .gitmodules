@@ -1,0 +1,3 @@
+[submodule "source/stack"]
+	path = source/stack
+	url = git@gist.github.com:/c6d989ba5b59e5f9bcdb.git

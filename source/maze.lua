@@ -51,22 +51,25 @@ function Maze:Create(width, height, closed)
     end
   end
   
-  function maze:tostring()
+  function maze:tostring(wall, passage)
+    wall = wall or "#"
+    passage = passage or " "
+    
     local result = ""
     
     local verticalBorder = ""
     for i = 1, #self[1] do
-      verticalBorder = verticalBorder .. "#" .. (self[1][i].north:isClosed() and "#" or " ")
+      verticalBorder = verticalBorder .. wall .. (self[1][i].north:isClosed() and wall or passage)
     end
-    verticalBorder = verticalBorder .. "#"
+    verticalBorder = verticalBorder .. wall
     result = result .. verticalBorder .. "\n"
 
     for y, row in ipairs(self) do
-      local line = row[1].west:isClosed() and "#" or " "
-      local underline = "#"
+      local line = row[1].west:isClosed() and wall or passage
+      local underline = wall
       for x, cell in ipairs(row) do
-        line = line .. " " .. (cell.east:isClosed() and "#" or " ")
-        underline = underline .. (cell.south:isClosed() and "#" or " ") .. "#"
+        line = line .. " " .. (cell.east:isClosed() and wall or passage)
+        underline = underline .. (cell.south:isClosed() and wall or passage) .. wall
       end
       result = result .. line .. "\n" .. underline .. "\n"
     end
@@ -108,41 +111,4 @@ function Maze:CreateDoor(closed)
   end
   
   return door
-end
-
-function Maze:recursiveBacktracker(maze)
-  maze:resetDoors(true)
-  
-  local stack = Stack:Create()
-  
-  local cell = { x = 1, y = 1 }
-  while true do
-    maze[cell.y][cell.x].visited = true
-    
-    -- Gathering all possible travel direction in a list
-    local directions = {}
-    for key, value in pairs(self.directions) do
-      local newPos = { x = cell.x + value.x, y = cell.y + value.y }
-      -- Checking if the targeted cell is in bounds and was not visited previously
-      if maze[newPos.y] and maze[newPos.y][newPos.x] and not maze[newPos.y][newPos.x].visited then
-        directions[#directions + 1] = { name = key, pos = newPos }
-      end
-    end
-        
-    if #directions == 0 then
-      if #stack > 0 then
-        cell = stack:pop()
-        goto countinue
-      else break end
-    end
-    
-    stack:push(cell)
-    local dir = directions[math.random(#directions)]
-    maze[cell.y][cell.x][dir.name]:open() 
-    cell = dir.pos
-    
-    ::countinue::
-  end
-  
-  maze:resetVisited()
 end

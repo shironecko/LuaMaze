@@ -39,6 +39,8 @@ function love.keyreleased(key)
   if key == "1" then
     Maze:Backtracker(maze)
   elseif key == "2" then
+    Maze:RecursiveBacktracker(maze)
+  elseif key == "3" then
     Maze:Prim(maze)
   elseif key == "escape" then
     love.event.quit()

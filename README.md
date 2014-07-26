@@ -16,7 +16,7 @@ I'm trying to impelement all of the maze generation algorithms described at [Thi
 
 * Perfect
   * [x] Backtracker
-  * [ ] Recursive backtracker 
+  * [x] Recursive backtracker 
   * [x] Prim's algorithm
   * [ ] Kruskal's algorithm
   * [ ] Aldous-Broder algorithm

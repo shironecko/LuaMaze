@@ -1,6 +1,7 @@
 require "maze"
 require "algorithms/perfect"
 
+---[[
 function drawMaze(maze, x, y, cellDim, wallDim, cellCol, wallCol)
   love.graphics.setColor(wallCol)
   local mazeWidth = (cellDim + wallDim) * #maze[1] + wallDim
@@ -42,6 +43,8 @@ function love.keyreleased(key)
     Maze:RecursiveBacktracker(maze)
   elseif key == "3" then
     Maze:Prim(maze)
+  elseif key == "4" then
+    Maze:Eller(maze)
   elseif key == "escape" then
     love.event.quit()
   end
@@ -51,3 +54,11 @@ function love.draw()
   love.graphics.setBackgroundColor(100, 100, 200)
   drawMaze(maze, 10, 10, 20, 10, { 150, 150, 200 }, { 20, 20, 100 })
 end
+--]]
+
+--[[
+maze = Maze:Create(10, 3, true)
+while true do
+  Maze:Eller(maze)
+end
+--]]

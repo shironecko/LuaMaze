@@ -151,11 +151,12 @@ function Maze:Eller(maze)
         -- Merging sets together
         local lIndex = setMap[x]; local rIndex = setMap[x + 1]
         local lSet = sets[lIndex]; local rSet = sets[rIndex]
-        for i = x + 1, #maze[1] do
-          if setMap[i] ~= rIndex then break end
+        for i = 1, #maze[1] do
+          if setMap[i] ~= rIndex then goto continue end
           lSet[i] = true; lSet.n = lSet.n + 1
           rSet[i] = nil;  rSet.n = rSet.n - 1
           setMap[i] = lIndex
+          ::continue::
         end
       end
     end

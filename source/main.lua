@@ -45,6 +45,8 @@ function love.keyreleased(key)
     Maze:Prim(maze)
   elseif key == "4" then
     Maze:Eller(maze)
+  elseif key == "5" then
+    Maze:AldousBroder(maze)
   elseif key == "escape" then
     love.event.quit()
   end

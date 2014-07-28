@@ -5,12 +5,13 @@ I'm trying to impelement all of the maze generation algorithms described at [Thi
 
 ####TODO:####
 
-1. [ ] Create a modular, extensible system of the maze generators
-2. [ ] Improve maze visualization
-3. [ ] Work on wiki
-3. [ ] Optional: make a small mod for the Legend of Grimrock with random maze generation
-3. [ ] Optional: allow user to watch the maze created step by step by each algorithm
-4. [ ] Super-optional: make a small game for android about maze solving
+1. [ ] Implement all the perfect maze generation algorithms
+2. [ ] Create a modular, extensible system of the maze generators
+3. [ ] Improve maze visualization
+4. [ ] Work on wiki
+5. [ ] Optional: make a small mod for the Legend of Grimrock with random maze generation
+6. [ ] Optional: allow user to watch the maze created step by step by each algorithm
+7. [ ] Super-optional: make a small game for android about maze solving
 
 ####Algorithms####
 

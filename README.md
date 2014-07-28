@@ -23,7 +23,7 @@ I'm trying to impelement all of the maze generation algorithms described at [Thi
   * [ ] Wilson's algorithm
   * [ ] Hunt and kill algorithm
   * [ ] Growing tree algorithm
-  * [ ] Eller's algorithm
+  * [x] Eller's algorithm
   * [ ] Recursive division
   * [ ] Binary tree Mazes
   * [ ] Sidewinder Mazes

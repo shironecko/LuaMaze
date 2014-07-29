@@ -21,7 +21,7 @@ I'm trying to implement all of the maze generation algorithms described at [Thin
   * [x] Prim's algorithm
   * [x] Kruskal's algorithm
   * [x] Aldous-Broder algorithm
-  * [ ] Wilson's algorithm
+  * [x] Wilson's algorithm
   * [x] Hunt and kill algorithm
   * [ ] Growing tree algorithm
   * [x] Eller's algorithm

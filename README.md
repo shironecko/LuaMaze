@@ -22,7 +22,7 @@ I'm trying to implement all of the maze generation algorithms described at [Thin
   * [ ] Kruskal's algorithm
   * [x] Aldous-Broder algorithm
   * [ ] Wilson's algorithm
-  * [ ] Hunt and kill algorithm
+  * [x] Hunt and kill algorithm
   * [ ] Growing tree algorithm
   * [x] Eller's algorithm
   * [ ] Recursive division

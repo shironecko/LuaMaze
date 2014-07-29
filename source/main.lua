@@ -49,6 +49,8 @@ function love.keyreleased(key)
     Maze:AldousBroder(maze)
   elseif key == "6" then
     Maze:HuntAndKill(maze)
+  elseif key == "7" then
+    Maze:Kruskal(maze)
   elseif key == "escape" then
     love.event.quit()
   end
@@ -62,6 +64,6 @@ end
 
 --[[
 maze = Maze:Create(10, 3, true)
-Maze:HuntAndKill(maze)
+Maze:Kruskal(maze)
 print(maze:tostring())
 --]]

@@ -19,7 +19,7 @@ I'm trying to implement all of the maze generation algorithms described at [Thin
   * [x] Backtracker
   * [x] Recursive backtracker 
   * [x] Prim's algorithm
-  * [ ] Kruskal's algorithm
+  * [x] Kruskal's algorithm
   * [x] Aldous-Broder algorithm
   * [ ] Wilson's algorithm
   * [x] Hunt and kill algorithm

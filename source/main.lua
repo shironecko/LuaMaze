@@ -33,7 +33,9 @@ function drawMaze(maze, x, y, cellDim, wallDim, cellCol, wallCol)
 end
 
 function love.load()
-  maze = Maze:Create(25, 19, true)
+  --maze = Maze:Create(25, 19, true)
+  maze = Maze:Create(10, 10)
+  math.randomseed(os.time())
 end
 
 function love.keyreleased(key)
@@ -55,6 +57,8 @@ function love.keyreleased(key)
     Maze:Wilson(maze)
   elseif key == "9" then
     Maze:GrowingTree(maze)
+  elseif key == "q" then
+    Maze:RecursiveDivision(maze)
   elseif key == "escape" then
     love.event.quit()
   end
@@ -67,7 +71,7 @@ end
 --]]
 
 --[[
-maze = Maze:Create(10, 3, true)
-Maze:Wilson(maze)
+maze = Maze:Create(6, 6, true)
+Maze:RecursiveDivision(maze)
 print(maze:tostring())
 --]]

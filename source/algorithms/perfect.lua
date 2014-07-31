@@ -442,3 +442,39 @@ function Maze:GrowingTree(maze, selector)
   
   maze:resetVisited()
 end
+
+-- Recursive division algorithm
+function Maze:RecursiveDivision(maze, x, y, w, h)
+  local first
+  if not x then
+    maze:resetDoors(false, false)
+    x, y, w, h = 1, 1, #maze[1], #maze
+    first = true
+  elseif w <= 1 and h <= 1 then return end
+  
+  if w > h then
+    -- Vertical wall
+    local halfW = math.floor(w * 0.5)
+    local middle = x - 1 + halfW
+    for _y = y, y - 1 + h do
+      maze[_y][middle].east:close()
+    end
+    
+    maze[math.random(y, y - 1 + h)][middle].east:open()
+    
+      Maze:RecursiveDivision(maze, x, y, halfW, h)
+      Maze:RecursiveDivision(maze, x + halfW, y, w - halfW, h)
+  else
+    -- Horizontal wall
+    local halfH = math.floor(h * 0.5)
+    local middle = y - 1 + halfH
+    for _x = x, x - 1 + w do
+      maze[middle][_x].south:close()
+    end
+    
+    maze[middle][math.random(x, x - 1 + w)].south:open()
+    
+    Maze:RecursiveDivision(maze, x, y, w, halfH)
+    Maze:RecursiveDivision(maze, x, y + halfH, w, h - halfH)
+  end
+end

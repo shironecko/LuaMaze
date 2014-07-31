@@ -53,6 +53,8 @@ function love.keyreleased(key)
     Maze:Kruskal(maze)
   elseif key == "8" then
     Maze:Wilson(maze)
+  elseif key == "9" then
+    Maze:GrowingTree(maze)
   elseif key == "escape" then
     love.event.quit()
   end

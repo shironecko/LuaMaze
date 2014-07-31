@@ -28,18 +28,19 @@ function Maze:Create(width, height, closed)
     end
   end
   
-  function maze:resetDoors(close)
+  function maze:resetDoors(close, borders)
     for y = 1, #self do
-      self[y][#self[1]].east:setOpened(not close)
-      
       for i, cell in ipairs(self[y]) do
-        cell.north:setOpened(not close)
-        cell.west:setOpened(not close)
+        cell.north:setClosed(close or y == 1 and not borders)
+        cell.west:setClosed(close)
       end
-    end
+      
+       self[y][1].west:setClosed(close or not borders)
+       self[y][#self[1]].east:setClosed(close or not borders)
+   end
     
     for i, cell in ipairs(self[#self]) do
-      cell.south:setOpened(not close)
+      cell.south:setClosed(close or not borders)
     end
   end
   
@@ -108,6 +109,10 @@ function Maze:CreateDoor(closed)
     else
       self:close()
     end
+  end
+  
+  function door:setClosed(closed)
+    self:setOpened(not closed)
   end
   
   return door

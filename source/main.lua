@@ -33,6 +33,8 @@ function drawMaze(maze, x, y, cellDim, wallDim, cellCol, wallCol)
 end
 
 function love.load()
+  if arg[#arg] == "-debug" then require("mobdebug").start() end
+  
   maze = Maze:Create(25, 19, true)
   --maze = Maze:Create(10, 15)
   math.randomseed(os.time())

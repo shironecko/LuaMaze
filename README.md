@@ -27,5 +27,5 @@ I'm trying to implement all of the maze generation algorithms described at [Thin
   * [x] Growing tree algorithm
   * [x] Eller's algorithm
   * [x] Recursive division
-  * [ ] Binary tree Mazes
+  * [x] Binary tree Mazes
   * [ ] Sidewinder Mazes

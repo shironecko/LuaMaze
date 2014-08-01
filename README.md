@@ -6,7 +6,7 @@ I'm trying to implement all of the maze generation algorithms described at [Thin
 
 ####TODO:####
 
-* [ ] Implement all the perfect maze generation algorithms
+* [x] Implement all the perfect maze generation algorithms
 * [ ] Separate generators definitions across separate files and clean up their code
 * [ ] Work on Wiki
 * [ ] Improve maze visualization
@@ -28,4 +28,4 @@ I'm trying to implement all of the maze generation algorithms described at [Thin
   * [x] Eller's algorithm
   * [x] Recursive division
   * [x] Binary tree Mazes
-  * [ ] Sidewinder Mazes
+  * [x] Sidewinder Mazes

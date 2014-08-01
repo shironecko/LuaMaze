@@ -61,6 +61,8 @@ function love.keyreleased(key)
     Maze:RecursiveDivision(maze)
   elseif key == "w" then
     Maze:BinaryTree(maze)
+  elseif key == "e" then
+    Maze:Sidewinder(maze)
   elseif key == "escape" then
     love.event.quit()
   end

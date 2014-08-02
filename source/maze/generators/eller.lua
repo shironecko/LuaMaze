@@ -1,6 +1,12 @@
 -- Eller's algorithm
-function Maze:Eller(maze)
-  maze:resetDoors(true)
+-- Detailed description: http://weblog.jamisbuck.org/2010/12/29/maze-generation-eller-s-algorithm
+local random = math.random
+local pairs = pairs
+local Maze = require "maze"
+_ENV = nil
+
+local function eller(maze)
+  maze:ResetDoors(true)
   
   -- Prepairing sets representations
   local sets = {}
@@ -14,8 +20,8 @@ function Maze:Eller(maze)
     for x = 1, #maze[1] - 1 do
       -- Randomly remove east wall and merging sets
       if setMap[x] ~= setMap[x + 1] and
-      (math.random(2) == 1 or y == #maze) then
-        maze[y][x].east:open()
+      (random(2) == 1 or y == #maze) then
+        maze[y][x].east:Open()
         -- Merging sets together
         local lIndex = setMap[x]; local rIndex = setMap[x + 1]
         local lSet = sets[lIndex]; local rSet = sets[rIndex]
@@ -38,19 +44,19 @@ function Maze:Eller(maze)
       for x, j in pairs(set) do
         if x == "n" then goto continue end
         lastCell = x
-        if math.random(2) == 1 then 
-          maze[y][x].south:open() 
+        if random(2) == 1 then 
+          maze[y][x].south:Open() 
           opened = true
         end
         ::continue::
       end
       
-      if not opened and lastCell then maze[y][lastCell].south:open() end
+      if not opened and lastCell then maze[y][lastCell].south:Open() end
     end
     
     -- Removing cell with south walls from their sets
     for x = 1, #maze[1] do
-      if maze[y][x].south:isClosed() then
+      if maze[y][x].south:IsClosed() then
         local set = sets[setMap[x]]
         set[x] = nil; set.n = set.n - 1
         setMap[x] = nil
@@ -73,3 +79,5 @@ function Maze:Eller(maze)
     end
   end
 end
+
+return eller

@@ -1,30 +1,31 @@
 -- Prim's algorithm
-function Maze:Prim(maze)
-  maze:resetDoors(true)
+-- Detailed description: http://weblog.jamisbuck.org/2011/1/10/maze-generation-prim-s-algorithm
+local random = math.random
+local pairs = pairs
+local Maze = require "maze"
+_ENV = nil
+
+local function prim(maze)
+  maze:ResetDoors(true)
   
   local frontiers = {}
-  local cell = { x = math.random(#maze[1]), y = math.random(#maze) }
+  local cell = { x = random(#maze[1]), y = random(#maze) }
   
   while true do
     maze[cell.y][cell.x].visited = true
     maze[cell.y][cell.x].frontier = nil
     
-    for key, value in pairs(self.directions) do
-      local newPos = { x = cell.x + value.x, y = cell.y + value.y }
-      
+    for _, dirn in pairs(maze:DirectionsFrom(cell.x, cell.y, function (cell) return not cell.visited and not cell.frontier end)) do
       -- Marking every adjastment cell as a frontier, if not done so already
-      if maze[newPos.y] and maze[newPos.y][newPos.x] and not maze[newPos.y][newPos.x].visited and
-      not maze[newPos.y][newPos.x].frontier then
-        maze[newPos.y][newPos.x].frontier = true
-        frontiers[#frontiers + 1] = newPos
-      end
+      maze[dirn.y][dirn.x].frontier = true
+      frontiers[#frontiers + 1] = { x = dirn.x, y = dirn.y }
     end
     
     -- If there are no frontiers left - our job here is done
     if #frontiers == 0 then break end
     
     -- Choosing random frontier
-    local rand_i = math.random(#frontiers)
+    local rand_i = random(#frontiers)
     local rand_f = frontiers[rand_i]
     -- Removing it from the list
     frontiers[rand_i] = frontiers[#frontiers]
@@ -32,17 +33,15 @@ function Maze:Prim(maze)
     
     -- Choosing random 'in' adjastment cell to carve from
     local ins = {}
-    for key, value in pairs(self.directions) do
-      local newPos = { x = rand_f.x + value.x, y = rand_f.y + value.y }
-      
-      if maze[newPos.y] and maze[newPos.y][newPos.x] and maze[newPos.y][newPos.x].visited then
-        ins[#ins + 1] = key
-      end
+    for _, dirn in pairs(maze:DirectionsFrom(rand_f.x, rand_f.y, function (cell) return cell.visited end)) do
+      ins[#ins + 1] = dirn.name
     end
     
-    maze[rand_f.y][rand_f.x][ins[math.random(#ins)]]:open()
+    maze[rand_f.y][rand_f.x][ins[random(#ins)]]:Open()
     cell = rand_f
   end
     
-  maze:resetVisited()
+  maze:ResetVisited()
 end
+
+return prim

@@ -2,7 +2,8 @@ local Maze = require "maze"
 local generators = require "maze.generators"
 
 local maze = Maze:new(5, 5)
-generators.recursive_backtracker(maze)
+--generators.recursive_backtracker(maze)
+generators.aldous_broder(maze)
 print(maze)
 
 

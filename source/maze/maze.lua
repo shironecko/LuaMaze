@@ -1,5 +1,5 @@
-require "stack/stack"
-
+--require "stack/stack"
+print("maze")
 Maze = 
 { 
   directions =

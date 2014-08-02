@@ -1,5 +1,5 @@
- -- Recursive Backtracker algorithm
- -- Detailed description: http://weblog.jamisbuck.org/2010/12/27/maze-generation-recursive-backtracking
+-- Recursive Backtracker algorithm
+-- Detailed description: http://weblog.jamisbuck.org/2010/12/27/maze-generation-recursive-backtracking
 local random = math.random
 local Maze = require "maze"
 _ENV = nil

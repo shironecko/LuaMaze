@@ -1,9 +1,14 @@
 -- Growing tree algorithm
-function Maze:GrowingTree(maze, selector)
-  maze:resetDoors(true)
-  selector = selector or function (list) return math.random(#list) end
+-- Detailed description: http://weblog.jamisbuck.org/2011/1/27/maze-generation-growing-tree-algorithm
+local random = math.random
+local Maze = require "maze"
+_ENV = nil
+
+local function growing_tree(maze, selector)
+  maze:ResetDoors(true)
+  selector = selector or function (list) return random(#list) end
   
-  local cell = { x = math.random(#maze[1]), y = math.random(#maze) }
+  local cell = { x = random(#maze[1]), y = random(#maze) }
   maze[cell.y][cell.x].visited = true
   local list = { cell }
   
@@ -11,14 +16,7 @@ function Maze:GrowingTree(maze, selector)
     local rnd_i = selector(list)
     cell = list[rnd_i]
     
-    local directions = {}
-    for key, value in pairs(self.directions) do
-      local newPos = { x = cell.x + value.x, y = cell.y + value.y }
-      
-      if maze[newPos.y] and maze[newPos.y][newPos.x] and not maze[newPos.y][newPos.x].visited then
-        directions[#directions + 1] = { name = key, pos = newPos }
-      end
-    end
+    local directions = maze:DirectionsFrom(cell.x, cell.y, function (cell) return not cell.visited end)
     
     if #directions < 2 then
       list[rnd_i] = list[#list]
@@ -26,13 +24,15 @@ function Maze:GrowingTree(maze, selector)
     end
     if #directions == 0 then goto continue end
     
-    local dir = directions[math.random(#directions)]
-    maze[cell.y][cell.x][dir.name]:open()
-    maze[dir.pos.y][dir.pos.x].visited = true
-    list[#list + 1] = dir.pos
+    local dirn = directions[random(#directions)]
+    maze[cell.y][cell.x][dirn.name]:Open()
+    maze[dirn.y][dirn.x].visited = true
+    list[#list + 1] = { x = dirn.x, y = dirn.y }
     
     ::continue::
   end
   
-  maze:resetVisited()
+  maze:ResetVisited()
 end
+
+return growing_tree

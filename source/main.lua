@@ -1,7 +1,12 @@
-require "maze"
-require "algorithms/perfect"
+local Maze = require "maze"
+local generators = require "maze.generators"
 
----[[
+local maze = Maze:new(5, 5)
+generators.recursive_backtracker(maze)
+print(maze)
+
+
+--[[
 function drawMaze(maze, x, y, cellDim, wallDim, cellCol, wallCol)
   love.graphics.setColor(wallCol)
   local mazeWidth = (cellDim + wallDim) * #maze[1] + wallDim

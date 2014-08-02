@@ -1,35 +1,34 @@
--- Recursive Backtracker algorithm
-function Maze:RecursiveBacktracker(maze, cell)
-  local firstOne = nil
-  if not cell then
-    maze:resetDoors(true)
-    cell = { x = 1, y = 1 }
-    firstOne = true
+ -- Recursive Backtracker algorithm
+ -- Detailed description: http://weblog.jamisbuck.org/2010/12/27/maze-generation-recursive-backtracking
+local random = math.random
+local Maze = require "maze"
+_ENV = nil
+
+local function recursive_backtracker(maze, x, y)
+  local first_one = nil
+  if not x then
+    first_one = true
+    maze:ResetDoors(true)
+    x, y = random(#maze[1]), random(#maze)
   end
   
-  maze[cell.y][cell.x].visited = true
+  maze[y][x].visited = true
   
-  local directions = {}
-  for key, value in pairs(self.directions) do
-    local newPos = { x = cell.x + value.x, y = cell.y + value.y }
-    
-    if maze[newPos.y] and maze[newPos.y][newPos.x] and not maze[newPos.y][newPos.x].visited then
-      directions[#directions + 1] = { name = key, pos = newPos }
-    end
-  end
-  
+  local directions = maze:DirectionsFrom(x, y, function (cell) return not cell.visited end)  
   while #directions ~= 0 do
-    local rand_i = math.random(#directions)
-    local dir = directions[rand_i]
+    local rand_i = random(#directions)
+    local dirn = directions[rand_i]
     
     directions[rand_i] = directions[#directions]
     directions[#directions] = nil
     
-    if not maze[dir.pos.y][dir.pos.x].visited then
-      maze[cell.y][cell.x][dir.name]:open()
-      Maze:RecursiveBacktracker(maze, dir.pos)
+    if not maze[dirn.y][dirn.x].visited then
+      maze[y][x][dirn.name]:Open()
+      recursive_backtracker(maze, dirn.x, dirn.y)
     end
   end
   
-  if firstOne then maze:resetVisited() end
+  if first_one then maze:ResetVisited() end
 end
+
+return recursive_backtracker

@@ -1,48 +1,55 @@
 -- Recursive division algorithm
-function Maze:RecursiveDivision(maze, splitDecider, splitBalancer, x, y, w, h)
+-- Detailed description: http://weblog.jamisbuck.org/2011/1/12/maze-generation-recursive-division-algorithm
+local random = math.random
+local Maze = require "maze"
+_ENV = nil
+
+local function recursive_division(maze, split_decider, split_balancer, x, y, w, h)
   if not x then
-    maze:resetDoors(false, false)
+    maze:ResetDoors(false, false)
     x, y, w, h = 1, 1, #maze[1], #maze
     
-    splitDecider = splitDecider or function (w, h) 
+    split_decider = split_decider or function (w, h) 
       do return w > h end
       if w > h then
-        return math.random(5) > 1
+        return random(5) > 1
       elseif h > w then
-        return math.random(5) == 1
+        return random(5) == 1
       else
-        return math.random(2) == 1
+        return random(2) == 1
       end
     end
     
-    splitBalancer = splitBalancer or function(length)
-      return math.random(length)
+    split_balancer = split_balancer or function(length)
+      return random(length)
     end
   elseif w <= 1 and h <= 1 then return end
   
-  if h == 1 or w > 1 and splitDecider(w, h) then
+  if h == 1 or w > 1 and split_decider(w, h) then
     -- Vertical wall
-    local halfW = splitBalancer(w - 1)
+    local halfW = split_balancer(w - 1)
     local middle = x - 1 + halfW
     for _y = y, y - 1 + h do
-      maze[_y][middle].east:close()
+      maze[_y][middle].east:Close()
     end
     
-    maze[math.random(y, y - 1 + h)][middle].east:open()
+    maze[random(y, y - 1 + h)][middle].east:Open()
     
-      Maze:RecursiveDivision(maze, splitDecider, splitBalancer, x, y, halfW, h)
-      Maze:RecursiveDivision(maze, splitDecider, splitBalancer, x + halfW, y, w - halfW, h)
+      recursive_division(maze, split_decider, split_balancer, x, y, halfW, h)
+      recursive_division(maze, split_decider, split_balancer, x + halfW, y, w - halfW, h)
   else
     -- Horizontal wall
-    local halfH = splitBalancer(h - 1)
+    local halfH = split_balancer(h - 1)
     local middle = y - 1 + halfH
     for _x = x, x - 1 + w do
-      maze[middle][_x].south:close()
+      maze[middle][_x].south:Close()
     end
     
-    maze[middle][math.random(x, x - 1 + w)].south:open()
+    maze[middle][random(x, x - 1 + w)].south:Open()
     
-    Maze:RecursiveDivision(maze, splitDecider, splitBalancer, x, y, w, halfH)
-    Maze:RecursiveDivision(maze, splitDecider, splitBalancer, x, y + halfH, w, h - halfH)
+    recursive_division(maze, split_decider, split_balancer, x, y, w, halfH)
+    recursive_division(maze, split_decider, split_balancer, x, y + halfH, w, h - halfH)
   end
 end
+
+return recursive_division

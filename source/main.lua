@@ -9,7 +9,8 @@ local maze = Maze:new(5, 5)
 --generators.growing_tree(maze)
 --generators.hunt_and_kill(maze)
 --generators.kruskal(maze)
-generators.prim(maze)
+--generators.prim(maze)
+generators.recursive_division(maze)
 print(maze)
 
 

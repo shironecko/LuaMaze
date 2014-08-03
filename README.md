@@ -6,18 +6,22 @@ I'm trying to implement all of the maze generation algorithms described at [Thin
 
 ####TODO:####
 
-* [x] Implement all the perfect maze generation algorithms
-* [ ] Separate generators definitions across separate files and clean up their code
+* [x] Implement all of the perfect maze generation algorithms (found at Think Labyrinth!)
+* [ ] Work on the module structure
+  * [x] Separate generators definitions across separate files
+  * [ ] Clean and optimize generators code
 * [ ] Work on Wiki
+  * [ ] Quickstart guide
+  * [ ] Maze structure description
+  * [ ] Algorithms descriptions
 * [ ] Improve maze visualization
-* [ ] Optional: make a small mod for the Legend of Grimrock with random maze generation
+* [ ] Implement a method for testing a maze for perfection
+* [ ] Implement all of the maze solving algorithms (found at Think Labyrinth!)
 * [ ] Optional: allow user to watch the maze created step by step by each algorithm
-* [ ] Super-optional: make a small game for android about maze solving
 
 ####Algorithms####
 
-* Perfect
-  * [x] Backtracker
+* Generating (perfect mazes)
   * [x] Recursive backtracker 
   * [x] Prim's algorithm
   * [x] Kruskal's algorithm

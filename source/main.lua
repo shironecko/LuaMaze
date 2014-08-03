@@ -1,47 +1,32 @@
 local Maze = require "maze"
 local generators = require "maze.generators"
 
-local maze = Maze:new(5, 5)
---generators.recursive_backtracker(maze)
---generators.aldous_broder(maze)
---generators.binary_tree(maze)
---generators.eller(maze)
---generators.growing_tree(maze)
---generators.hunt_and_kill(maze)
---generators.kruskal(maze)
---generators.prim(maze)
---generators.recursive_division(maze)
---generators.sidewinder(maze)
-generators.wilson(maze)
-print(maze)
-
-
---[[
-function drawMaze(maze, x, y, cellDim, wallDim, cellCol, wallCol)
-  love.graphics.setColor(wallCol)
-  local mazeWidth = (cellDim + wallDim) * #maze[1] + wallDim
-  local mazeHeight = (cellDim + wallDim) * #maze + wallDim
-  love.graphics.rectangle("fill", x, y, mazeWidth, mazeHeight)
+---[[
+function draw_maze(maze, x, y, cell_dim, wall_dim, cell_col, wall_col)
+  love.graphics.setColor(wall_col)
+  local maze_width = (cell_dim + wall_dim) * #maze[1] + wall_dim
+  local maze_height = (cell_dim + wall_dim) * #maze + wall_dim
+  love.graphics.rectangle("fill", x, y, maze_width, maze_height)
   
-  love.graphics.setColor(cellCol)
+  love.graphics.setColor(cell_col)
   for yi = 1, #maze do
     for xi = 1, #maze[1] do
-      local posX = x + (cellDim + wallDim) * (xi - 1) + wallDim
-      local posY = y + (cellDim + wallDim) * (yi - 1) + wallDim
-      love.graphics.rectangle("fill", posX, posY, cellDim, cellDim)
+      local pos_x = x + (cell_dim + wall_dim) * (xi - 1) + wall_dim
+      local pos_y = y + (cell_dim + wall_dim) * (yi - 1) + wall_dim
+      love.graphics.rectangle("fill", pos_x, pos_y, cell_dim, cell_dim)
       
       -- Need to redo this, badly...
-      if maze[yi][xi].north:isOpened() then
-        love.graphics.rectangle("fill", posX, posY - wallDim, cellDim, wallDim)
+      if maze[yi][xi].north:IsOpened() then
+        love.graphics.rectangle("fill", pos_x, pos_y - wall_dim, cell_dim, wall_dim)
       end
-      if maze[yi][xi].east:isOpened() then
-        love.graphics.rectangle("fill", posX + cellDim, posY, wallDim, cellDim)
+      if maze[yi][xi].east:IsOpened() then
+        love.graphics.rectangle("fill", pos_x + cell_dim, pos_y, wall_dim, cell_dim)
       end
-      if maze[yi][xi].south:isOpened() then
-        love.graphics.rectangle("fill", posX, posY + cellDim, cellDim, wallDim)
+      if maze[yi][xi].south:IsOpened() then
+        love.graphics.rectangle("fill", pos_x, pos_y + cell_dim, cell_dim, wall_dim)
       end
-      if maze[yi][xi].west:isOpened() then
-        love.graphics.rectangle("fill", posX - wallDim, posY, wallDim, cellDim)
+      if maze[yi][xi].west:IsOpened() then
+        love.graphics.rectangle("fill", pos_x - wall_dim, pos_y, wall_dim, cell_dim)
       end
     end
   end 
@@ -50,36 +35,33 @@ end
 function love.load()
   if arg[#arg] == "-debug" then require("mobdebug").start() end
   
-  maze = Maze:Create(25, 19, true)
-  --maze = Maze:Create(10, 15)
+  maze = Maze:new(25, 19)
   math.randomseed(os.time())
 end
 
 function love.keyreleased(key)
   if key == "1" then
-    Maze:Backtracker(maze)
+    generators.recursive_backtracker(maze)
   elseif key == "2" then
-    Maze:RecursiveBacktracker(maze)
+    generators.prim(maze)
   elseif key == "3" then
-    Maze:Prim(maze)
+    generators.eller(maze)
   elseif key == "4" then
-    Maze:Eller(maze)
+    generators.aldous_broder(maze)
   elseif key == "5" then
-    Maze:AldousBroder(maze)
+    generators.hunt_and_kill(maze)
   elseif key == "6" then
-    Maze:HuntAndKill(maze)
+    generators.kruskal(maze)
   elseif key == "7" then
-    Maze:Kruskal(maze)
+    generators.wilson(maze)
   elseif key == "8" then
-    Maze:Wilson(maze)
-  elseif key == "9" then
-    Maze:GrowingTree(maze)
+    generators.growing_tree(maze)
   elseif key == "q" then
-    Maze:RecursiveDivision(maze)
+    generators.recursive_division(maze)
   elseif key == "w" then
-    Maze:BinaryTree(maze)
+    generators.binary_tree(maze)
   elseif key == "e" then
-    Maze:Sidewinder(maze)
+    generators.sidewinder(maze)
   elseif key == "escape" then
     love.event.quit()
   end
@@ -87,12 +69,6 @@ end
 
 function love.draw()
   love.graphics.setBackgroundColor(100, 100, 200)
-  drawMaze(maze, 10, 10, 20, 10, { 150, 150, 200 }, { 20, 20, 100 })
+  draw_maze(maze, 10, 10, 20, 10, { 150, 150, 200 }, { 20, 20, 100 })
 end
---]]
-
---[[
-maze = Maze:Create(6, 6, true)
-Maze:RecursiveDivision(maze)
-print(maze:tostring())
 --]]

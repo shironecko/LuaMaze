@@ -11,5 +11,6 @@ namespace.hunt_and_kill = require "maze.generators.hunt_and_kill"
 namespace.kruskal = require "maze.generators.kruskal"
 namespace.prim = require "maze.generators.prim"
 namespace.recursive_division = require "maze.generators.recursive_division"
+namespace.sidewinder = require "maze.generators.sidewinder"
 
 return namespace

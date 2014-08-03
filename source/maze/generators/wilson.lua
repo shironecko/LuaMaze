@@ -1,6 +1,12 @@
 -- Wilson's algorithm
-function Maze:Wilson(maze)
-  maze:resetDoors(true)
+-- Detailed description: http://weblog.jamisbuck.org/2011/1/20/maze-generation-wilson-s-algorithm
+local random = math.random
+local pairs = pairs
+local Maze = require "maze"
+_ENV = nil
+
+local function wilson(maze)
+  maze:ResetDoors(true)
   
   -- List of cells to randomly choose from
   local cells = {}
@@ -12,7 +18,7 @@ function Maze:Wilson(maze)
     end
   end
   
-  local initial_cell = math.random(#cells)
+  local initial_cell = random(#cells)
   local target = maze[cells[initial_cell].y][cells[initial_cell].x]
   target.list_idx = nil
   maze[cells[#cells].y][cells[#cells].x].list_idx = initial_cell
@@ -24,22 +30,15 @@ function Maze:Wilson(maze)
     local map = {}
     for y = 1, #maze do map[y] = {} end
     
-    local starting_cell = cells[math.random(#cells)]
+    local starting_cell = cells[random(#cells)]
     local cell = starting_cell
     -- Wander around, forming a path, untill stumble upon allready visited cell (e.g. cell with no index in the list)
     while maze[cell.y][cell.x].list_idx do
-      local directions = {}
-      for key, value in pairs(self.directions) do
-        local newPos = { x = cell.x + value.x, y = cell.y + value.y }
-        
-        if maze[newPos.y] and maze[newPos.y][newPos.x] then
-          directions[#directions + 1] = { name = key, pos = newPos }
-        end
-      end
-      
-      local dir = directions[math.random(#directions)]
-      map[cell.y][cell.x] = { direction = dir.name, travelPos = dir.pos }
-      cell = dir.pos
+      local directions = maze:DirectionsFrom(cell.x, cell.y)      
+      local dirn = directions[random(#directions)]
+      local new_pos = { x = dirn.x, y = dirn.y }
+      map[cell.y][cell.x] = { direction = dirn.name, travel_pos = new_pos }
+      cell = new_pos
     end
     
     cell = starting_cell
@@ -52,9 +51,11 @@ function Maze:Wilson(maze)
       cells[#cells] = nil
       cl.list_idx = nil
       
-      cl[node.direction]:open()
-      cell = node.travelPos
+      cl[node.direction]:Open()
+      cell = node.travel_pos
       node = map[cell.y][cell.x]
     end
   end
 end
+
+return wilson

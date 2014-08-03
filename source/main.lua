@@ -11,7 +11,8 @@ local maze = Maze:new(5, 5)
 --generators.kruskal(maze)
 --generators.prim(maze)
 --generators.recursive_division(maze)
-generators.sidewinder(maze)
+--generators.sidewinder(maze)
+generators.wilson(maze)
 print(maze)
 
 

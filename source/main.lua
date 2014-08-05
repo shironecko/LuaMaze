@@ -39,36 +39,49 @@ function love.load()
   math.randomseed(os.time())
 end
 
+local last_generator = "none"
+
 function love.keyreleased(key)
+  local generator
   if key == "1" then
-    generators.recursive_backtracker(maze)
+    generator = "recursive_backtracker"
   elseif key == "2" then
-    generators.prim(maze)
+    generator = "prim"
   elseif key == "3" then
-    generators.eller(maze)
+    generator = "eller"
   elseif key == "4" then
-    generators.aldous_broder(maze)
+    generator = "aldous_broder"
   elseif key == "5" then
-    generators.hunt_and_kill(maze)
+    generator = "hunt_and_kill"
   elseif key == "6" then
-    generators.kruskal(maze)
+    generator = "kruskal"
   elseif key == "7" then
-    generators.wilson(maze)
+    generator = "wilson"
   elseif key == "8" then
-    generators.growing_tree(maze)
+    generator = "growing_tree"
   elseif key == "q" then
-    generators.recursive_division(maze)
+    generator = "recursive_division"
   elseif key == "w" then
-    generators.binary_tree(maze)
+    generator = "binary_tree"
   elseif key == "e" then
-    generators.sidewinder(maze)
+    generator = "sidewinder"
   elseif key == "escape" then
     love.event.quit()
+  end
+  
+  if generator then
+    local time = love.timer.getTime()
+    generators[generator](maze)
+    time = love.timer.getTime() - time
+    
+    last_generator = string.format("%s : %.3fs", generator, time)
   end
 end
 
 function love.draw()
   love.graphics.setBackgroundColor(100, 100, 200)
   draw_maze(maze, 10, 10, 20, 10, { 150, 150, 200 }, { 20, 20, 100 })
+  love.graphics.setColor(255, 255, 255)
+  love.graphics.print(last_generator, 0, 0)
 end
 --]]

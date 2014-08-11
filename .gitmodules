@@ -1,0 +1,3 @@
+[submodule "source/frames"]
+	path = source/frames
+	url = git@github.com:NikolaiResokav/LoveFrames.git

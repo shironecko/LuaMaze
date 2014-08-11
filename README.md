@@ -1,7 +1,7 @@
 LuaMaze
 =======
 
-I'm trying to implement all of the maze generation algorithms described at [Think Labyrinth!](http://www.astrolog.org/labyrnth/algrithm.htm) using [Love2D](http://love2d.org/) for visualization.
+I'm trying to implement all of the maze generation algorithms described at [Think Labyrinth!](http://www.astrolog.org/labyrnth/algrithm.htm) using [Love2D](http://love2d.org/) for visualization and [Löve Frames](http://nikolairesokav.com/projects/loveframes) as a GUI library.
 [Jamis Buck blog](http://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap) is also very helpful, this is my place to go when algorithm descriptions I find at Think Labyrinth! isn't clear enough for me to implement.
 
 ####TODO:####
@@ -15,6 +15,9 @@ I'm trying to implement all of the maze generation algorithms described at [Thin
   * [ ] Maze structure description
   * [ ] Algorithms descriptions
 * [ ] Improve maze visualization
+  * [x] Integrate LoveFrames and make a basic interface
+  * [ ] Extend interface with algorithm descriptions
+  * [ ] Add algorithm benchmarking
 * [ ] Implement a method for testing a maze for perfection
 * [ ] Implement all of the maze solving algorithms (found at Think Labyrinth!)
 * [ ] Optional: allow user to watch the maze created step by step by each algorithm

@@ -37,6 +37,14 @@ function Maze:new( width, height, closed, obj )
   return obj
 end
 
+function Maze:width()
+  return #self[1]
+end
+
+function Maze:height()
+  return #self
+end
+
 function Maze:DirectionsFrom(x, y, validator)
   local directions = {}
   validator = validator or function() return true end

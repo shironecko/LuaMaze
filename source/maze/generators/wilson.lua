@@ -13,8 +13,8 @@ function CellList:new(maze, list)
   list = list or {}
 
   -- this vars and some of the functions will be hidden inside a closure
-  local width = #maze[1]
-  local height = #maze
+  local width = maze:width()
+  local height = maze:height()
 
   local function hash(x, y)
     return width * (y - 1) + x
@@ -92,7 +92,7 @@ local Map = {}
 function Map:new(maze, map)
   map = map or {}
 
-  for i = 1, #maze do
+  for i = 1, maze:height() do
     map[#map + 1] = {}
   end
 

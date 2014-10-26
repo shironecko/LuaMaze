@@ -6,10 +6,10 @@ _ENV = nil
 
 local function aldous_broder(maze)
   maze:ResetDoors(true)
-  local remaining = #maze * #maze[1] - 1
+  local remaining = maze:width() * maze:height() - 1
   
   -- wander randomly through the maze
-  local x, y = random(#maze[1]), random(#maze)
+  local x, y = random(maze:width()), random(maze:height())
   maze[y][x].visited = true
   -- till there are unvisited cells left
   while remaining ~= 0 do

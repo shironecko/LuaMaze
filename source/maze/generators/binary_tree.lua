@@ -7,9 +7,11 @@ _ENV = nil
 local function binary_tree(maze)
   maze:ResetDoors(true)
   
-  for y = 1, #maze do
-    for x = 1, #maze[1] do
-      if x ~= #maze[1] and (y == #maze or random(2) == 1) then
+  -- wander through the maze
+  for y = 1, maze:height() do
+    for x = 1, maze:width() do
+      -- and randomly open east or south doors
+      if x ~= maze:width() and (y == maze:height() or random(2) == 1) then
         maze[y][x].east:Open()
       else
         maze[y][x].south:Open()
@@ -17,7 +19,7 @@ local function binary_tree(maze)
     end
   end
   
-  maze[#maze][#maze[1]].south:Close()
+  maze[maze:height()][maze:width()].south:Close()
 end
 
 return binary_tree

@@ -11,21 +11,21 @@ local function eller(maze)
   -- Prepairing sets representations
   local sets = {}
   local setMap = {}
-  for i = 1, #maze[1] do
+  for i = 1, maze:width() do
     setMap[i] = i
     sets[i] = { [i] = true, n = 1 }
   end
   
-  for y = 1, #maze do
-    for x = 1, #maze[1] - 1 do
+  for y = 1, maze:height() do
+    for x = 1, maze:width() - 1 do
       -- Randomly remove east wall and merging sets
       if setMap[x] ~= setMap[x + 1] and
-      (random(2) == 1 or y == #maze) then
+      (random(2) == 1 or y == maze:height()) then
         maze[y][x].east:Open()
         -- Merging sets together
         local lIndex = setMap[x]; local rIndex = setMap[x + 1]
         local lSet = sets[lIndex]; local rSet = sets[rIndex]
-        for i = 1, #maze[1] do
+        for i = 1, maze:width() do
           if setMap[i] ~= rIndex then goto continue end
           lSet[i] = true; lSet.n = lSet.n + 1
           rSet[i] = nil;  rSet.n = rSet.n - 1
@@ -35,7 +35,7 @@ local function eller(maze)
       end
     end
     
-    if y == #maze then break end
+    if y == maze:height() then break end
     
     -- Randomly remove south walls and making sure that at least one cell in each set has no south wall
     for i, set in pairs(sets) do
@@ -55,7 +55,7 @@ local function eller(maze)
     end
     
     -- Removing cell with south walls from their sets
-    for x = 1, #maze[1] do
+    for x = 1, maze:width() do
       if maze[y][x].south:IsClosed() then
         local set = sets[setMap[x]]
         set[x] = nil; set.n = set.n - 1
@@ -70,7 +70,7 @@ local function eller(maze)
     end
     
     -- Assigning all cell without a set to an empty set from the list
-    for x = 1, #maze[1] do
+    for x = 1, maze:width() do
       if not setMap[x] then
         setMap[x] = emptySets[#emptySets]; emptySets[#emptySets] = nil
         local set = sets[setMap[x]]

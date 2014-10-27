@@ -4,31 +4,36 @@ local random = math.random
 local Maze = require "maze"
 _ENV = nil
 
-local function recursive_backtracker(maze, x, y)
-  local first_one = nil
-  if not x then
-    first_one = true
-    maze:ResetDoors(true)
-    x, y = random(#maze[1]), random(#maze)
-  end
-  
+local function backtrack(maze, x, y)
   maze[y][x].visited = true
   
+  -- while there are possible travel directions from this cell
   local directions = maze:DirectionsFrom(x, y, function (cell) return not cell.visited end)  
   while #directions ~= 0 do
+    -- choose random direction
     local rand_i = random(#directions)
     local dirn = directions[rand_i]
     
     directions[rand_i] = directions[#directions]
     directions[#directions] = nil
     
+    -- if this direction leads to an unvisited cell:
+    -- carve and recurse into this new cell
     if not maze[dirn.y][dirn.x].visited then
       maze[y][x][dirn.name]:Open()
-      recursive_backtracker(maze, dirn.x, dirn.y)
+      backtrack(maze, dirn.x, dirn.y)
     end
   end
+end
+
+local function recursive_backtracker(maze, x, y)
+  maze:ResetDoors(true)
+  x, y = random(maze:width()), random(maze:height())
   
-  if first_one then maze:ResetVisited() end
+  -- start recursive maze carving
+  backtrack(maze, x, y)
+  
+  maze:ResetVisited()
 end
 
 return recursive_backtracker

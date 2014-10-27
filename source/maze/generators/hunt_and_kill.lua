@@ -9,19 +9,24 @@ local function hunt_and_kill(maze)
   maze:ResetDoors(true)
   
   maze[1][1].visited = true
+  -- these will track last hunt position and free us of need to traverse the whole maze on each hunt
+  local hunt_x, hunt_y = 1, 1
   while true do
     local cell
     -- Hunt
-    for y = 1, #maze do
-      for x = 1, #maze[1] do
-        if maze[y][x].visited then
-          for key, value in pairs(maze:DirectionsFrom(x, y, function (cell) return not cell.visited end)) do
-            cell = { x = x, y = y }
+    repeat -- y iteration
+      repeat -- x iteration
+        if maze[hunt_y][hunt_x].visited then
+          for key, value in pairs(maze:DirectionsFrom(hunt_x, hunt_y, function (cell) return not cell.visited end)) do
+            cell = { x = hunt_x, y = hunt_y }
             goto carve
           end
         end
-      end
-    end
+        hunt_x = hunt_x + 1
+      until hunt_x > maze:width()
+      hunt_x = 1
+      hunt_y = hunt_y + 1
+    until hunt_y > maze:height()
     
     -- If we're reached this spot, then there left no unvisited cells
     goto hunt_completed

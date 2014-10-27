@@ -10,8 +10,8 @@ local function kruskal(maze)
   
   local sets = {}
   local walls = {}
-  for y = 1, #maze do
-    for x = 1, #maze[1] do
+  for y = 1, maze:height() do
+    for x = 1, maze:width() do
       -- Sets
       local currCell = maze[y][x]
       local setID = (y - 1) * #maze[1] + x
@@ -19,10 +19,10 @@ local function kruskal(maze)
       currCell.set = setID
       
       -- Walls list
-      if x ~= #maze[1] then 
+      if x ~= maze:width() then 
         walls[#walls + 1] = { from = currCell, to = maze[y][x + 1], direction = "east" } 
       end
-      if y ~= #maze then
+      if y ~= maze:height() then
         walls[#walls + 1] = { from = currCell, to = maze[y + 1][x], direction = "south" }
       end
     end
@@ -51,8 +51,8 @@ local function kruskal(maze)
   end
   
   -- Clean sets data
-  for y = 1, #maze do
-    for x = 1, #maze[1] do
+  for y = 1, maze:height() do
+    for x = 1, maze:width() do
       maze[y][x].set = nil
     end
   end

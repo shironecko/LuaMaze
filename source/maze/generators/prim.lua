@@ -9,7 +9,7 @@ local function prim(maze)
   maze:ResetDoors(true)
   
   local frontiers = {}
-  local cell = { x = random(#maze[1]), y = random(#maze) }
+  local cell = { x = random(maze:width()), y = random(maze:height()) }
   
   while true do
     maze[cell.y][cell.x].visited = true

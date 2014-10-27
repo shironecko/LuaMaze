@@ -1,8 +1,8 @@
 LuaMaze
 =======
 
-I'm trying to implement all of the maze generation algorithms described at [Think Labyrinth!](http://www.astrolog.org/labyrnth/algrithm.htm) using [Love2D](http://love2d.org/) for visualization and [Löve Frames](http://nikolairesokav.com/projects/loveframes) as a GUI library.
-[Jamis Buck blog](http://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap) is also very helpful, this is my place to go when algorithm descriptions I find at Think Labyrinth! isn't clear enough for me to implement.
+Initial mission was to implement all of the maze generation algorithms described at [Think Labyrinth!](http://www.astrolog.org/labyrnth/algrithm.htm) using [Love2D](http://love2d.org/) for visualization and [Löve Frames](http://nikolairesokav.com/projects/loveframes) as a GUI library.
+Having done that, I'm concentraiting on cleaning up the code and adding tests as well as more impressive visualization before moving on to more advanced algorithms.
 
 ####TODO:####
 
@@ -36,3 +36,9 @@ I'm trying to implement all of the maze generation algorithms described at [Thin
   * [x] Recursive division
   * [x] Binary tree Mazes
   * [x] Sidewinder Mazes
+
+####Sources of knowledge and inspiration####
+
+* [Think Labyrinth!](http://www.astrolog.org/labyrnth/algrithm.htm) - place containing invaluable knowledge for everyone interested in labyrinths and their random generation.
+* [Jamis Buck blog](http://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap) - this was my place to go when algorithm descriptions I found at Think Labyrinth! wasn't clear enough for me to implement.
+* [CS50x](https://www.edx.org/node/1022) on [edx.org](https://www.edx.org) - I've decided to make this module as a final project ot this course. It's also great :)

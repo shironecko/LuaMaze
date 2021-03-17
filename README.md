@@ -45,13 +45,41 @@ There are a few ways to use this lib in your own project. Copy [source/maze](sou
 
 You can use [source/cli.lua](source/cli.lua) as a CLI example. It's meant to be run in luajit or similar lua-runtime:
 
-```sh
+```
 luajit source/cli.lua <width> <height> <algo>
+```
+
+Here is an example:
+
+```
+luajit source/cli.lua 20 10 sidewinder
+
+#########################################
+# #   #   # # #   #   #   #   #   #   # #
+# ### # ### # ### # ### ### ##### ### # #
+# # #   #     #   # #   #     # # # #   #
+# # ### # ##### ### # ##### ### # # ### #
+# # #   # #     #     #   # # #   #     #
+# # # ### ### ### ##### ### # # ##### ###
+# # # # # # #     #     # #   #   #     #
+# # # # # # ### ##### ### ### ### ### ###
+# #   # #   # #     #           #   # # #
+# # ### ### # ##### ######### ### ### # #
+# #   # #     # # #   # #   # # # #     #
+# ### # ### ### # # ### ### # # # ##### #
+# #     #   #     #   #     # # #     # #
+# # ####### # ##### ##### ### # # ##### #
+# #   # #   #   #       # # # # #       #
+# # ### ### ### ### ##### # # # # #######
+# # # #   #   #     # #   #   # #     # #
+# # # # ##### ### ### ### ### # ### ### #
+#                                       #
+#########################################
 ```
 
 #### Love2d
 
-There are 2 output helpers for love. One is [source/maze/love_rect.lua](source/maze/love_rect.lua) for using shape-primitives, and the other is [source/maze/love_tile.lua](source/maze/love_tile.lua) for using images.
+There are 2 output helpers for love. One is [source/maze/love/rect.lua](source/maze/love/rect.lua) for using rectangle shape-primitive, and the other is [source/maze/love/tile.lua](source/maze/love/tile.lua) for using images.
 
 [source/](source) is an example love2d project that uses rects & frames lib for it's UI. See [source/main.lua](source/main.lua) to see how it works.
 

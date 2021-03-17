@@ -1,6 +1,8 @@
 -- https://github.com/shironecko/LuaMaze
 
--- lua doesn't have a built-in way to require a rtelative file...
+-- these can all be required seperately, but this makes it easier by putting them all together
+
+-- lua doesn't have a built-in way to require a relative file...
 local requireRel
 if arg and arg[0] then
     package.path = arg[0]:match("(.-)[^\\/]+$") .. "?.lua;" .. package.path
@@ -24,4 +26,10 @@ maze.generators = {
     sidewinder = requireRel("maze.generators.sidewinder"),
     wilson = requireRel("maze.generators.wilson")
 }
+
+maze.love = {
+    rect = requireRel("maze.love.rect"),
+    tile = requireRel("maze.love.tile")
+}
+
 return maze

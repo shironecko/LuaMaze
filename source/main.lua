@@ -18,7 +18,6 @@ function love.load()
     y=10,
     font=love.graphics.newFont(15),
     ismouse=true,
-    rounded=true,
     w=230,
     h=200,
     

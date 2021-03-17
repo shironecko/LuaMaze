@@ -4,7 +4,7 @@ local Maze = require "maze"
 local list = require "listbox"
 
 local maze
-local algo = "recursive_backtracker"
+local algo = "aldous_broder"
 
 function love.load()
   love.window.setTitle("LuaMaze")
@@ -30,7 +30,6 @@ function love.load()
     bgcolor={0.0784313725490196, 0.0784313725490196, 0.0784313725490196},
   }
   list:newprop(tlist)
-  list:additem("Recursive Backtracker","recursive_backtracker")
   list:additem("Aldous-Broder","aldous_broder")
   list:additem("Binary Tree","binary_tree")
   list:additem("Eller's algorithm","eller")
@@ -38,6 +37,7 @@ function love.load()
   list:additem("Hunt and Kill","hunt_and_kill")
   list:additem("Kruskal's algorithm","kruskal")
   list:additem("Prim's algorithm","prim")
+  list:additem("Recursive Backtracker","recursive_backtracker")
   list:additem("Recursive Division","recursive_division")
   list:additem("Sidewinder","sidewinder")
   list:additem("Wilson's algorithm","wilson")

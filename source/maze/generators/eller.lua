@@ -1,9 +1,6 @@
 -- Eller's algorithm
 -- Detailed description: http://weblog.jamisbuck.org/2010/12/29/maze-generation-eller-s-algorithm
 local random = math.random
-local pairs = pairs
-local Maze = require "maze"
-_ENV = nil
 
 local function eller(maze)
   maze:ResetDoors(true)

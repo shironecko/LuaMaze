@@ -1,8 +1,6 @@
 -- Growing tree algorithm
 -- Detailed description: http://weblog.jamisbuck.org/2011/1/27/maze-generation-growing-tree-algorithm
 local random = math.random
-local Maze = require "maze"
-_ENV = nil
 
 local function growing_tree(maze, selector)
   maze:ResetDoors(true)
@@ -22,14 +20,12 @@ local function growing_tree(maze, selector)
       list[rnd_i] = list[#list]
       list[#list] = nil
     end
-    if #directions == 0 then goto continue end
-    
-    local dirn = directions[random(#directions)]
-    maze[cell.y][cell.x][dirn.name]:Open()
-    maze[dirn.y][dirn.x].visited = true
-    list[#list + 1] = { x = dirn.x, y = dirn.y }
-    
-    ::continue::
+    if #directions ~= 0 then
+      local dirn = directions[random(#directions)]
+      maze[cell.y][cell.x][dirn.name]:Open()
+      maze[dirn.y][dirn.x].visited = true
+      list[#list + 1] = { x = dirn.x, y = dirn.y }
+    end
   end
   
   maze:ResetVisited()

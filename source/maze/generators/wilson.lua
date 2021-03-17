@@ -2,9 +2,6 @@
 -- Detailed description: http://weblog.jamisbuck.org/2011/1/20/maze-generation-wilson-s-algorithm
 local random = math.random
 local ceil = math.ceil
-local error = error
-local Maze = require "maze"
-_ENV = nil
 
 -- Data structure that will map itself onto the maze and will contain the list of cells
 local CellList = {}

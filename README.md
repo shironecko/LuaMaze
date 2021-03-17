@@ -4,7 +4,7 @@ LuaMaze
 Initial mission was to implement all of the maze generation algorithms described at [Think Labyrinth!](http://www.astrolog.org/labyrnth/algrithm.htm) using [Love2D](http://love2d.org/) for visualization and [Löve Frames](http://nikolairesokav.com/projects/loveframes) as a GUI library.
 Having done that, I'm concentraiting on cleaning up the code and adding tests as well as more impressive visualization before moving on to more advanced algorithms.
 
-####TODO:####
+### TODO:
 
 * [x] Implement all of the perfect maze generation algorithms (found at Think Labyrinth!)
 * [ ] Work on the module structure
@@ -22,7 +22,7 @@ Having done that, I'm concentraiting on cleaning up the code and adding tests as
 * [ ] Implement all of the maze solving algorithms (found at Think Labyrinth!)
 * [ ] Optional: allow user to watch the maze created step by step by each algorithm
 
-####Algorithms####
+### Algorithms
 
 * Generating (perfect mazes)
   * [x] Recursive backtracker 
@@ -37,7 +37,26 @@ Having done that, I'm concentraiting on cleaning up the code and adding tests as
   * [x] Binary tree Mazes
   * [x] Sidewinder Mazes
 
-####Sources of knowledge and inspiration####
+### Usage
+
+There are a few ways to use this lib in your own project. Copy [source/maze](source/maze) into your project's path to use this library.
+
+#### CLI
+
+You can use [source/cli.lua](source/cli.lua) as a CLI example. It's meant to be run in luajit or similar lua-runtime:
+
+```sh
+luajit source/cli.lua <width> <height> <algo>
+```
+
+#### Love2d
+
+There are 2 output helpers for love. One is [source/maze/love_rect.lua](source/maze/love_rect.lua) for using shape-primitives, and the other is [source/maze/love_tile.lua](source/maze/love_tile.lua) for using images.
+
+[source/](source) is an example love2d project that uses rects & frames lib for it's UI. See [source/main.lua](source/main.lua) to see how it works.
+
+
+### Sources of knowledge and inspiration
 
 * [Think Labyrinth!](http://www.astrolog.org/labyrnth/algrithm.htm) - place containing invaluable knowledge for everyone interested in labyrinths and their random generation.
 * [Jamis Buck blog](http://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap) - this was my place to go when algorithm descriptions I found at Think Labyrinth! wasn't clear enough for me to implement.

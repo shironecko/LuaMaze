@@ -1,8 +1,6 @@
 -- Binary tree algorithm
 -- Detailed description: http://weblog.jamisbuck.org/2011/2/1/maze-generation-binary-tree-algorithm
 local random = math.random
-local Maze = require "maze"
-_ENV = nil
 
 local function binary_tree(maze)
   maze:ResetDoors(true)

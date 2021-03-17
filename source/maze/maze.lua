@@ -1,7 +1,4 @@
-local setmetatable = setmetatable
-local ipairs = ipairs
-local pairs = pairs
-_ENV = nil
+-- https://github.com/shironecko/LuaMaze
 
 local Maze = 
 {

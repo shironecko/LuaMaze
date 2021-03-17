@@ -1,9 +1,6 @@
 -- Hunt and kill algorithm
 -- Detailed description: http://weblog.jamisbuck.org/2011/1/24/maze-generation-hunt-and-kill-algorithm
 local random = math.random
-local pairs = pairs
-local Maze = require "maze"
-_ENV = nil
 
 local function hunt_and_kill(maze)
   maze:ResetDoors(true)

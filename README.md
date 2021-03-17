@@ -55,6 +55,8 @@ There are 2 output helpers for love. One is [source/maze/love_rect.lua](source/m
 
 [source/](source) is an example love2d project that uses rects & frames lib for it's UI. See [source/main.lua](source/main.lua) to see how it works.
 
+To test it, do `git clone --recursive git@github.com:shironecko/LuaMaze.git` then `love source`.
+
 
 ### Sources of knowledge and inspiration
 

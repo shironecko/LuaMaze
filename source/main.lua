@@ -5,12 +5,15 @@ local list = require "listbox"
 
 local maze
 local algo = "aldous_broder"
+local time = 0
 
 function love.load()
   love.window.setTitle("LuaMaze")
   math.randomseed(os.time())
   maze = Maze:new(17, 19, true)
+  local t = os.clock()
   Maze.generators[algo](maze)
+  time = os.clock() - t
 
   local tlist = {
     selected=1,
@@ -45,6 +48,7 @@ end
 function love.draw()
   list:draw()
   Maze.love.rect(maze, 10, 10, 20, 10, { 0.58, 0.58, 0.78 }, { 0.07, 0.07, 0.39 })
+  love.graphics.printf(string.format("took %fms", time), 550, 220, 230 )
 end
 
 function love.keypressed(key)
@@ -60,6 +64,8 @@ function love.update(dt)
   local a = list:getdata(list:getselected())
   if a ~= algo then
     algo = a
+    local t = os.clock()
     Maze.generators[algo](maze)
+    time = os.clock() - t
   end
 end

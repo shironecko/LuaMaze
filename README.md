@@ -77,7 +77,7 @@ luajit source/cli.lua 20 10 sidewinder
 #########################################
 ```
 
-There is also a [source/braille.lua](source/braille.lua) that makes neater/more-compact CLI mazes, but requires lua 5.3 (luajit is 5.1.)
+There is also a [source/braille.lua](source/braille.lua) that makes neater/more-compact CLI mazes, but it requires utf8 either as a `require` or built-in (as is the case with lua 5.3.) If you want to use luajit (lua 5.1), and have luarocks installed, do `luarocks install utf8`. Love2D also has support for utf8.
 
 ```
 lua source/braille.lua 20 20 recursive_backtracker
@@ -103,8 +103,6 @@ lua source/braille.lua 20 20 recursive_backtracker
 ⡇⠀⣉⣉⣉⣉⠉⠉⣉⣹⡇⢸⡏⠉⣀⣸⣇⣀⣉⣉⣀⣸⡇⢸⡏⠉⠉⢹⣏⣉⣀⣸⣇⣀⠉⢹⣇⣸⡇⢸
 ⣇⣀⣉⣉⣉⣹⣇⣀⣉⣉⣀⣸⣇⣀⣉⣉⣉⣉⣉⣉⣉⣉⣀⣀⣀⣸⣇⣀⣉⣉⣉⣉⣉⣉⣀⣀⣉⣉⣀⣸
 ```
-
-It requires utf8 either as a `require` or built-in (as is the case with lua 5.3.) If you want to use luajit (lua 5.1), and have luarocks installed, do `luarocks install utf8`. Love2D also has support for utf8.
 
 #### Love2d
 

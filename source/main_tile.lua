@@ -7,12 +7,15 @@ local maze
 local batches
 local image
 local algo = "aldous_broder"
+local time = 0
 
 function love.load()
   love.window.setTitle("LuaMaze")
   math.randomseed(os.time())
   maze = Maze:new(17, 18, true)
+  local t = os.clock()
   Maze.generators[algo](maze)
+  time = os.clock() - t
 
   image = love.graphics.newImage("assets/maze.png")
   batches = Maze.love.tile:setup(maze, image)
@@ -51,6 +54,7 @@ function love.draw()
   list:draw()
   love.graphics.setColor({1,1,1})
   Maze.love.tile:draw(batches, 10, 10)
+  love.graphics.printf(string.format("took %fms", time), 550, 220, 230 )
 end
 
 function love.keypressed(key)
@@ -66,7 +70,9 @@ function love.update(dt)
   local a = list:getdata(list:getselected())
   if a ~= algo then
     algo = a
+    local t = os.clock()
     Maze.generators[algo](maze)
+    time = os.clock() - t
     batches = Maze.love.tile:setup(maze, image)
   end
 end

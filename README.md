@@ -104,6 +104,8 @@ lua source/braille.lua 20 20 recursive_backtracker
 ⣇⣀⣉⣉⣉⣹⣇⣀⣉⣉⣀⣸⣇⣀⣉⣉⣉⣉⣉⣉⣉⣉⣀⣀⣀⣸⣇⣀⣉⣉⣉⣉⣉⣉⣀⣀⣉⣉⣀⣸
 ```
 
+It requires utf8 either as a `require` or built-in (as is the case with lua 5.3.) If you want to use luajit (lua 5.1), and have luarocks installed, do `luarocks install utf8`. Love2D also has support for utf8.
+
 #### Love2d
 
 There are 2 output helpers for love. One is [source/maze/love/rect.lua](source/maze/love/rect.lua) for using rectangle shape-primitive, and the other is [source/maze/love/tile.lua](source/maze/love/tile.lua) for using images. If you need a maze that is bigger than the screen, I highly recommend [hump's camera](https://hump.readthedocs.io/en/latest/camera.html). Basically just draw the entire maze, then `lookAt` where your player is currently.

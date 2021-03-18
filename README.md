@@ -81,10 +81,11 @@ luajit source/cli.lua 20 10 sidewinder
 
 There are 2 output helpers for love. One is [source/maze/love/rect.lua](source/maze/love/rect.lua) for using rectangle shape-primitive, and the other is [source/maze/love/tile.lua](source/maze/love/tile.lua) for using images.
 
-[source/](source) is an example love2d project that uses rects & frames lib for it's UI. See [source/main.lua](source/main.lua) to see how it works.
+[source/](source) is an example love2d project that uses rects & listbox lib for it's UI. See [source/main.lua](source/main.lua) to see how it works.
 
-To test it, do `git clone --recursive git@github.com:shironecko/LuaMaze.git` then `love source`.
+To test it, run `love source`.
 
+You can also rename source/main_tile.lua](source/main_tile.lua) to `main.lua` and see the same example using tile-images instead of rectangles. Setup your tile-image at any size, with 5 square sub-images: N, S, W, E, floor whcih will be composited together.
 
 ### Sources of knowledge and inspiration
 

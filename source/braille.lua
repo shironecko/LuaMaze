@@ -1,9 +1,9 @@
-#!/usr/bin/env lua
 
--- This is a CLI-example of generating mazes in utf8 braille characters
--- run with lua 5.3
+-- this adds support for love & luajit (via luarocks instyall utf8)
+if not utf8 then
+  utf8 = require "utf8"
+end
 
--- lua doesn't have a built-in way to require a rtelative file...
 local requireRel
 if arg and arg[0] then
     package.path = arg[0]:match("(.-)[^\\/]+$") .. "?.lua;" .. package.path
@@ -12,6 +12,8 @@ elseif ... then
     local d = (...):match("(.-)[^%.]+$")
     function requireRel(module) return require(d .. module) end
 end
+
+local Maze = requireRel("maze.init")
 
 -- output a maze as braille characters
 -- based on ideas from drawille: https://github.com/asciimoo/drawille
@@ -93,11 +95,6 @@ end
 local width = arg[1] or 10
 local height = arg[2] or 10
 local algo = arg[3] or "recursive_backtracker"
-
--- this loads the whole thing, but you could load just the generator you want
--- and maze with maze.maze and maze.generators.ALGO
-local Maze = requireRel('maze.init')
-
 local maze = Maze:new(width, height, true)
 
 -- maek sure random is more random

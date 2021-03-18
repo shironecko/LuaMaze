@@ -1,5 +1,5 @@
 
--- this adds support for love & luajit (via luarocks instyall utf8)
+-- this adds support for love & luajit (via luarocks install utf8)
 if not utf8 then
   utf8 = require "utf8"
 end

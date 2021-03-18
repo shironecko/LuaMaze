@@ -77,7 +77,7 @@ luajit source/cli.lua 20 10 sidewinder
 #########################################
 ```
 
-There is also a [source/braille.lua](source/braille.lua) that makes neater/more-compact CLI mazes, but requires lua 5.3 (luajit is 5.2.)
+There is also a [source/braille.lua](source/braille.lua) that makes neater/more-compact CLI mazes, but requires lua 5.3 (luajit is 5.1.)
 
 ```
 lua source/braille.lua 20 20 recursive_backtracker

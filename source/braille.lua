@@ -66,7 +66,7 @@ function braille(maze)
   local out = ""
   for yi = 1, #maze do
     for xi = 1, #maze[1] do
-      local block = { 0, 0 }
+      local block = { 0x2800, 0x2800 }
       if maze[yi][xi].north:IsClosed() then
         block[1] = setbits(block[1], {0x01, 0x08})
         block[2] = setbits(block[2], {0x01, 0x08})
@@ -82,7 +82,7 @@ function braille(maze)
         block[1] = setbits(block[1], { 0x01, 0x02, 0x04, 0x40})
       end
       -- requires lua 5.3
-      out = out .. utf8.char(block[1]+0x2800, block[2]+0x2800)
+      out = out .. utf8.char(block[1], block[2])
     end
     out = out .. "\n"
   end

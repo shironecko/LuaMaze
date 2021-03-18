@@ -79,13 +79,13 @@ luajit source/cli.lua 20 10 sidewinder
 
 #### Love2d
 
-There are 2 output helpers for love. One is [source/maze/love/rect.lua](source/maze/love/rect.lua) for using rectangle shape-primitive, and the other is [source/maze/love/tile.lua](source/maze/love/tile.lua) for using images.
+There are 2 output helpers for love. One is [source/maze/love/rect.lua](source/maze/love/rect.lua) for using rectangle shape-primitive, and the other is [source/maze/love/tile.lua](source/maze/love/tile.lua) for using images. If you need a maze that is bigger than the screen, I highly recommend [hump's camera](https://hump.readthedocs.io/en/latest/camera.html). Basically just draw the entire maze, then `lookAt` where your player is currently.
 
 [source/](source) is an example love2d project that uses rects & listbox lib for it's UI. See [source/main.lua](source/main.lua) to see how it works.
 
 To test it, run `love source`.
 
-You can also rename source/main_tile.lua](source/main_tile.lua) to `main.lua` and see the same example using tile-images instead of rectangles. Setup your tile-image at any size, with 5 square sub-images: N, S, W, E, floor whcih will be composited together.
+You can also rename source/main_tile.lua](source/main_tile.lua) to `main.lua` and see the same example using tile-images instead of rectangles. Setup your tile-image at any size, with 5 square sub-images: N, S, W, E, floor which will be composited together.
 
 ### Sources of knowledge and inspiration
 

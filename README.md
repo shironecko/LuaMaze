@@ -77,6 +77,33 @@ luajit source/cli.lua 20 10 sidewinder
 #########################################
 ```
 
+There is also a [source/braille.lua](source/braille.lua) that makes neater/more-compact CLI mazes, but requires lua 5.3 (luajit is 5.2.)
+
+```
+lua source/braille.lua 20 20 recursive_backtracker
+
+⣏⣉⠉⠉⠉⢹⡏⠉⣉⣉⠉⢹⡏⠉⠉⢹⡏⢹⡏⠉⠉⠉⣉⣉⣉⣉⣉⣉⠉⢹⣏⣉⣉⣉⠉⠉⣉⣉⠉⢹
+⡏⠉⣀⣸⡇⢸⡇⢸⡏⢹⣇⣀⣀⣸⡇⢸⣇⣀⣀⣸⣇⣀⣉⣉⠉⢹⣏⣉⣀⣀⣉⣉⣉⣉⣀⣸⡏⠉⣀⣸
+⡇⢸⣏⣉⣀⣀⣀⣸⡇⠀⣉⣹⡏⠉⣀⣸⡏⠉⣉⣉⣉⣉⠉⢹⣇⣀⠉⢹⡏⠉⣉⣉⣉⣉⠉⢹⣇⣀⠉⢹
+⣇⣀⠉⠉⠉⢹⡏⠉⣀⣸⡏⠉⣀⣸⣏⣉⣀⣀⠉⢹⡏⢹⡇⢸⡏⠉⣀⣸⡇⢸⡏⠉⠉⢹⣇⣀⣉⣉⣀⣸
+⡏⢹⣇⣸⡇⢸⡇⢸⡏⠉⣀⣸⡏⠉⣉⣉⣉⣉⣀⣸⣇⣀⣀⣀⣀⣸⡏⠉⣀⣸⡇⢸⣇⣀⣉⣉⣉⣉⠉⢹
+⣇⣀⣉⣉⣀⣸⡇⢸⡇⢸⡏⠉⣀⣀⣉⣉⣉⣉⣉⣉⠉⢹⡏⠉⠉⢹⣇⣀⠉⢹⡇⢸⡏⠉⣉⣉⣉⣉⣀⣸
+⡏⠉⠉⠉⣉⣉⣀⣸⡇⢸⡇⢸⡏⠉⣉⣉⠉⢹⡏⠉⣀⣸⣇⣸⡇⠀⠉⢹⡇⢸⡇⢸⣇⣀⣉⣉⣉⣉⠉⢹
+⡇⢸⡇⢸⡏⠉⣉⣉⣀⣸⣇⣀⣀⣸⣏⣉⣀⣸⡇⢸⡏⠉⠉⢹⡇⢸⣇⣀⣀⣸⣇⣸⡏⠉⣉⣉⠉⢹⡇⢸
+⡇⢸⡇⢸⣇⣀⠉⢹⡏⠉⣉⣉⣉⣉⣉⣉⠉⢹⣇⣀⣀⣸⡇⢸⣇⣀⣉⣉⣉⣉⣉⣉⣀⣸⡏⢹⣇⣀⠀⢸
+⡇⢸⡇⠀⠉⢹⣇⣀⣀⣸⣏⣉⠉⠉⠉⢹⣇⣀⠉⢹⡏⠉⣀⣸⡏⠉⠉⠉⣉⣉⠉⢹⡏⠉⠀⢸⡏⢹⡇⢸
+⣇⣸⡇⢸⣇⣀⣉⣉⠉⠉⣉⣉⣀⣸⣇⣀⣉⣹⡇⢸⣇⣀⠉⢹⣇⣸⡇⠀⠉⢹⣇⣀⣀⣸⡇⠀⣀⣸⡇⢸
+⡏⠉⠀⢸⡏⠉⠉⢹⣇⣸⡏⠉⣉⣉⣉⣉⠉⢹⣇⣀⠉⢹⡇⠀⠉⢹⡇⢸⡇⢸⡏⠉⠉⢹⡇⢸⡏⠉⣀⣸
+⡇⢸⣇⣸⡇⢸⣇⣀⠉⢹⡇⢸⡏⠉⠉⢹⣇⣀⣉⣉⣀⣸⡇⢸⡇⢸⣇⣸⡇⢸⡇⢸⣇⣸⡇⢸⡇⢸⡏⢹
+⣇⣀⠉⢹⡇⢸⡏⢹⣇⣀⣀⣸⣇⣸⣇⣀⣉⣉⣉⣉⣉⣉⣀⣸⡇⠀⠉⢹⡇⢸⣇⣀⣉⣉⣀⣸⣇⣀⠀⢸
+⡏⠉⠀⢸⡇⢸⡇⠀⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⠉⢹⡇⢸⡇⢸⡇⠀⣉⣉⠉⢹⡏⠉⣉⣉⣀⣸
+⡇⢸⣇⣸⣇⣀⣀⣸⡏⠉⣉⣉⣉⣉⠉⢹⡏⢹⡏⠉⣉⣉⣀⣸⣇⣸⡇⢸⡇⢸⡏⠉⠀⢸⣇⣀⠉⢹⡏⢹
+⣇⣀⣉⣉⠉⢹⡏⠉⣀⣀⣉⣉⠉⢹⣇⣀⣀⣸⡇⢸⡏⠉⣉⣉⣉⣉⣀⣸⣇⣸⡇⢸⣇⣸⡏⠉⣀⣸⡇⢸
+⡏⠉⣉⣉⣀⣸⣇⣀⣉⣉⠉⢹⣇⣀⠉⢹⡏⠉⣀⣸⡇⢸⡏⠉⣉⣉⣉⣉⣉⣉⠀⢸⡏⠉⣀⣸⡏⠉⠀⢸
+⡇⠀⣉⣉⣉⣉⠉⠉⣉⣹⡇⢸⡏⠉⣀⣸⣇⣀⣉⣉⣀⣸⡇⢸⡏⠉⠉⢹⣏⣉⣀⣸⣇⣀⠉⢹⣇⣸⡇⢸
+⣇⣀⣉⣉⣉⣹⣇⣀⣉⣉⣀⣸⣇⣀⣉⣉⣉⣉⣉⣉⣉⣉⣀⣀⣀⣸⣇⣀⣉⣉⣉⣉⣉⣉⣀⣀⣉⣉⣀⣸
+```
+
 #### Love2d
 
 There are 2 output helpers for love. One is [source/maze/love/rect.lua](source/maze/love/rect.lua) for using rectangle shape-primitive, and the other is [source/maze/love/tile.lua](source/maze/love/tile.lua) for using images. If you need a maze that is bigger than the screen, I highly recommend [hump's camera](https://hump.readthedocs.io/en/latest/camera.html). Basically just draw the entire maze, then `lookAt` where your player is currently.

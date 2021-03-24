@@ -1,7 +1,7 @@
 LuaMaze
 =======
 
-Initial mission was to implement all of the maze generation algorithms described at [Think Labyrinth!](http://www.astrolog.org/labyrnth/algrithm.htm) using [Love2D](http://love2d.org/) for visualization and [Löve Frames](http://nikolairesokav.com/projects/loveframes) as a GUI library.
+Initial mission was to implement all of the maze generation algorithms described at [Think Labyrinth!](http://www.astrolog.org/labyrnth/algrithm.htm) using [Love2D](http://love2d.org/) for visualization and [ListBox](https://github.com/darkmetalic/ListBox) for displaying generators list.
 Having done that, I'm concentraiting on cleaning up the code and adding tests as well as more impressive visualization before moving on to more advanced algorithms.
 
 ### TODO:
@@ -15,10 +15,13 @@ Having done that, I'm concentraiting on cleaning up the code and adding tests as
   * [ ] Maze structure description
   * [ ] Algorithms descriptions
 * [ ] Improve maze visualization
-  * [x] Integrate LoveFrames and make a basic interface
+  * [x] Integrate ~LoveFrames~ ListBox and make a basic interface
   * [ ] Extend interface with algorithm descriptions
-  * [ ] Add algorithm benchmarking
-* [ ] Implement a method for testing a maze for perfection
+  * [x] Add algorithm benchmarking
+* [ ] Generation testing
+  * [ ] Implement a method for testing a maze for perfection
+  * [ ] Add a way to output maze geration results in text form and with a fixed RNG seed for tests
+   * [ ] Optional: research RNG algorithms used to allow testing of libs in other languages against LuaMaze
 * [ ] Implement all of the maze solving algorithms (found at Think Labyrinth!)
 * [ ] Optional: allow user to watch the maze created step by step by each algorithm
 

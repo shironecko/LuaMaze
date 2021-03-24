@@ -1,8 +1,6 @@
 -- Aldous-Broder algorithm
 -- Detailed description: http://weblog.jamisbuck.org/2011/1/17/maze-generation-aldous-broder-algorithm
 local random = math.random
-local Maze = require "maze"
-_ENV = nil
 
 local function aldous_broder(maze)
   maze:ResetDoors(true)

@@ -4,20 +4,25 @@ local Maze = require "maze"
 local list = require "listbox"
 
 local maze
+local batches
+local image
 local algo = "aldous_broder"
 local time = 0
 
 function love.load()
   love.window.setTitle("LuaMaze")
   math.randomseed(os.time())
-  maze = Maze:new(17, 19, true)
+  maze = Maze:new(17, 18, true)
   local t = os.clock()
   Maze.generators[algo](maze)
   time = os.clock() - t
 
+  image = love.graphics.newImage("assets/maze.png")
+  batches = Maze.love.tile:setup(maze, image)
+
   local tlist = {
     selected=1,
-    x=550,
+    x=560,
     y=10,
     font=love.graphics.newFont(15),
     ismouse=true,
@@ -47,7 +52,8 @@ end
 
 function love.draw()
   list:draw()
-  Maze.love.rect(maze, 10, 10, 20, 10, { 0.58, 0.58, 0.78 }, { 0.07, 0.07, 0.39 })
+  love.graphics.setColor({1,1,1})
+  Maze.love.tile:draw(batches, 10, 10)
   love.graphics.printf(string.format("took %fms", time), 550, 220, 230 )
 end
 
@@ -67,5 +73,6 @@ function love.update(dt)
     local t = os.clock()
     Maze.generators[algo](maze)
     time = os.clock() - t
+    batches = Maze.love.tile:setup(maze, image)
   end
 end

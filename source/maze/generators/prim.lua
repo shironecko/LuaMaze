@@ -1,9 +1,6 @@
 -- Prim's algorithm
 -- Detailed description: http://weblog.jamisbuck.org/2011/1/10/maze-generation-prim-s-algorithm
 local random = math.random
-local pairs = pairs
-local Maze = require "maze"
-_ENV = nil
 
 local function prim(maze)
   maze:ResetDoors(true)

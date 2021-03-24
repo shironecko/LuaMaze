@@ -1,8 +1,6 @@
 -- Sidewinder algorithm
 -- Detailed description: http://weblog.jamisbuck.org/2011/2/3/maze-generation-sidewinder-algorithm
 local random = math.random
-local Maze = require "maze"
-_ENV = nil
 
 local function sidewinder(maze)
   maze:ResetDoors(true)

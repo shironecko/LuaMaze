@@ -4,7 +4,7 @@ LuaMaze
 Initial mission was to implement all of the maze generation algorithms described at [Think Labyrinth!](http://www.astrolog.org/labyrnth/algrithm.htm) using [Love2D](http://love2d.org/) for visualization and [Löve Frames](http://nikolairesokav.com/projects/loveframes) as a GUI library.
 Having done that, I'm concentraiting on cleaning up the code and adding tests as well as more impressive visualization before moving on to more advanced algorithms.
 
-####TODO:####
+### TODO:
 
 * [x] Implement all of the perfect maze generation algorithms (found at Think Labyrinth!)
 * [ ] Work on the module structure
@@ -22,7 +22,7 @@ Having done that, I'm concentraiting on cleaning up the code and adding tests as
 * [ ] Implement all of the maze solving algorithms (found at Think Labyrinth!)
 * [ ] Optional: allow user to watch the maze created step by step by each algorithm
 
-####Algorithms####
+### Algorithms
 
 * Generating (perfect mazes)
   * [x] Recursive backtracker 
@@ -37,7 +37,57 @@ Having done that, I'm concentraiting on cleaning up the code and adding tests as
   * [x] Binary tree Mazes
   * [x] Sidewinder Mazes
 
-####Sources of knowledge and inspiration####
+### Usage
+
+There are a few ways to use this lib in your own project. Copy [source/maze](source/maze) into your project's path to use this library.
+
+#### CLI
+
+You can use [source/cli.lua](source/cli.lua) as a CLI example. It's meant to be run in luajit or similar lua-runtime:
+
+```
+luajit source/cli.lua <width> <height> <algo>
+```
+
+Here is an example:
+
+```
+luajit source/cli.lua 20 10 recursive_backtracker
+
+#########################################
+#     #   # #           #   #   #       #
+# ### # # # # ####### # # # # # # ##### #
+# #   # # #   #     # #   # # #   #   # #
+### # # # ### ### ### ##### # ##### ### #
+#   # # #   #     #   #   #   #     #   #
+# ##### ### ####### ### # ##### ### # ###
+#   #   # #       # #   #   #   #   #   #
+### # ### ####### # ### ### # ### ##### #
+#   #         #   #   #   #   #       # #
+# ########### # ### # ### ##### ##### # #
+#           # # #   #   #   #   #   # # #
+# ####### ### # ####### # # # ### # ### #
+#   #     #   # #     # # # #   # #     #
+### # ### # ### # ### # ### # ### #######
+#   # #   #   # #   #   #   # #   #     #
+# ### ####### ### # ##### ##### ### ### #
+# #   #     #   # #   #   #   #     #   #
+# # ### # ##### ##### # ### # ####### ###
+# #     #             #     #           #
+#########################################
+```
+
+#### Love2d
+
+There are 2 output helpers for love. One is [source/maze/love/rect.lua](source/maze/love/rect.lua) for using rectangle shape-primitive, and the other is [source/maze/love/tile.lua](source/maze/love/tile.lua) for using images. If you need a maze that is bigger than the screen, I highly recommend [hump's camera](https://hump.readthedocs.io/en/latest/camera.html). Basically just draw the entire maze, then `lookAt` where your player is currently.
+
+[source/](source) is an example love2d project that uses rects & listbox lib for it's UI. See [source/main.lua](source/main.lua) to see how it works.
+
+To test it, run `love source`.
+
+You can also rename source/main_tile.lua](source/main_tile.lua) to `main.lua` and see the same example using tile-images instead of rectangles. Setup your tile-image at any size, with 5 square sub-images: N, S, W, E, floor which will be composited together.
+
+### Sources of knowledge and inspiration
 
 * [Think Labyrinth!](http://www.astrolog.org/labyrnth/algrithm.htm) - place containing invaluable knowledge for everyone interested in labyrinths and their random generation.
 * [Jamis Buck blog](http://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap) - this was my place to go when algorithm descriptions I found at Think Labyrinth! wasn't clear enough for me to implement.

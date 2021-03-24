@@ -1,8 +1,6 @@
 -- Recursive division algorithm
 -- Detailed description: http://weblog.jamisbuck.org/2011/1/12/maze-generation-recursive-division-algorithm
 local random = math.random
-local Maze = require "maze"
-_ENV = nil
 
 local function divide(maze, split_decider, split_balancer, x, y, w, h)
   if w <= 1 and h <= 1 then return end

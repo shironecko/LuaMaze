@@ -1,9 +1,6 @@
 -- Kruskal's algorithm
 -- Detailed description: http://weblog.jamisbuck.org/2011/1/3/maze-generation-kruskal-s-algorithm
 local random = math.random
-local pairs = pairs
-local Maze = require "maze"
-_ENV = nil
 
 local function kruskal(maze)
   maze:ResetDoors(true)

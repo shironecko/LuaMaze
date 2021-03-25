@@ -80,6 +80,43 @@ luajit source/cli.lua 20 10 recursive_backtracker
 #########################################
 ```
 
+Additionally, there is a nice braille-demo that shows another way to render the raw luamaze. Here is a 20x20 eller maze:
+
+```
+⣏⣉⠉⢹⡏⢹⣏⣉⠉⠉⣉⣹⡏⠉⣉⣹⡏⠉⣉⣉⣉⣹⡏⠉⠉⢹⡏⢹⡏⢹⡏⠉⣉⣉⠉⢹⡏⢹⡏⢹
+⡏⠉⣀⣸⣇⣀⣉⣉⠀⢸⡏⠉⠀⠀⠉⠉⣀⣀⣉⣹⡏⢹⣇⣸⣇⣀⠀⠀⣀⣀⠀⢸⣏⣉⠀⠀⣀⣸⡇⢸
+⡇⠀⠉⢹⡏⢹⡏⠉⣀⣀⣀⣸⣇⣸⡇⠀⠉⠉⠉⠉⣀⣀⠉⠉⣉⣹⡇⠀⠉⢹⣇⣸⡏⠉⣀⣀⣉⣹⡇⢸
+⡇⢸⡇⠀⣀⣸⣇⣀⠉⢹⡏⢹⡏⢹⣇⣸⣇⣸⡇⢸⡏⢹⣇⣀⣉⣉⠀⢸⣇⣀⣉⣹⣇⣀⣉⣉⣉⣉⣀⣸
+⡇⢸⣇⣸⡏⠉⣉⣹⡇⢸⡇⢸⡇⢸⡏⢹⣏⣉⣀⣀⣀⣀⠉⢹⣏⣉⣀⣸⡏⠉⣉⣹⡏⢹⡏⢹⡏⢹⡏⢹
+⡇⢸⡏⢹⡇⠀⠉⠉⣀⣀⣀⣸⡇⢸⣇⣀⠉⢹⡏⢹⡏⢹⡇⢸⡏⠉⠉⢹⡇⢸⡏⢹⡇⢸⡇⢸⡇⠀⠀⢸
+⣇⣀⠀⢸⣇⣸⡇⢸⡏⢹⡏⢹⡇⢸⡏⠉⣀⣸⡇⢸⡇⠀⣀⣀⣀⣸⡇⢸⡇⠀⣀⣸⣇⣀⠀⠀⣀⣸⡇⢸
+⣏⣉⠀⠀⣉⣹⣇⣸⣇⣀⠀⠀⠀⢸⡇⢸⡏⢹⡇⢸⡇⢸⣏⣉⠉⢹⣇⣸⣇⣀⠉⢹⡏⠉⣀⣀⠉⢹⣇⣸
+⡏⠉⣀⣸⡏⠉⣉⣉⠉⠉⣀⣸⣇⣀⠀⢸⡇⢸⡇⢸⡇⢸⡏⢹⡇⢸⣏⣉⠉⢹⡇⢸⡇⠀⣉⣹⡇⠀⠉⢹
+⡇⢸⣏⣉⠀⢸⣏⣉⠀⢸⡏⠉⠉⢹⡇⢸⡇⢸⣇⣀⣀⣀⣀⣀⠀⢸⣏⣉⠀⢸⡇⠀⣀⣸⡏⠉⣀⣸⣇⣸
+⡇⢸⣏⣉⠀⠀⠉⢹⡇⠀⠀⢸⣇⣸⡇⢸⡇⢸⡏⢹⣏⣉⠉⠉⠀⠀⣉⣉⣀⣀⠀⢸⣏⣉⠀⠀⣉⣹⡏⢹
+⡇⢸⡏⢹⡇⢸⡇⢸⣇⣸⣇⣸⡏⢹⡇⢸⡇⢸⡇⠀⠉⢹⡇⢸⡇⠀⠉⠉⣉⣹⡇⢸⡏⠉⣀⣀⠉⢹⡇⢸
+⡇⠀⣀⣸⡇⢸⣇⣸⡏⠉⣉⣹⡇⢸⣇⣸⣇⣀⣀⣸⡇⢸⣇⣸⡇⢸⣇⣀⣉⣹⣇⣸⡇⢸⡏⠉⣀⣀⠀⢸
+⡇⢸⡏⢹⡇⠀⠉⢹⡇⢸⡏⠉⣀⣸⡏⢹⡏⠉⣉⣹⡇⠀⣉⣹⣇⣀⠉⠉⣉⣉⠉⢹⣇⣸⣇⣸⡏⢹⣇⣸
+⣇⣀⠀⠀⠀⢸⣇⣸⡇⢸⡇⠀⠉⠉⣀⣀⣀⣸⡏⢹⡇⢸⡏⠉⣉⣉⠀⢸⣏⣉⠀⠀⠉⠉⣉⣉⠀⢸⡏⢹
+⡏⢹⡇⢸⡇⢸⡏⢹⣇⣀⠀⢸⣇⣀⠉⠉⣉⣹⡇⢸⡇⢸⣇⣸⡏⠉⣀⣸⡏⢹⡇⢸⡇⢸⡏⢹⣇⣀⠀⢸
+⣇⣀⣀⣸⡇⢸⣇⣀⣉⣉⠀⢸⡏⢹⡇⠀⠉⢹⣇⣀⠀⢸⡏⠉⠀⠀⣉⣹⣇⣀⣀⣸⡇⢸⡇⢸⡏⠉⠀⢸
+⡏⢹⡏⢹⡇⠀⣉⣹⡏⢹⣇⣀⠀⢸⡇⢸⡇⠀⠉⢹⡇⢸⡇⢸⣇⣀⠉⠉⣉⣹⣏⣉⠀⢸⡇⢸⡇⢸⣇⣸
+⡇⢸⣇⣀⣀⣀⠉⠉⣀⣀⠉⠉⣀⣸⡇⢸⣇⣸⡇⢸⡇⠀⣀⣸⡏⢹⡇⢸⡏⠉⣉⣹⡇⢸⡇⢸⣇⣀⣉⣹
+⣇⣀⣉⣉⣉⣉⣀⣀⣉⣹⣇⣀⣉⣹⣇⣀⣉⣹⣇⣀⣀⣀⣉⣉⣀⣸⣇⣀⣀⣀⣉⣹⣇⣀⣀⣀⣉⣉⣉⣹
+```
+
+You can run this with:
+
+```
+lua source/braille.lua <width> <height> <algo>
+```
+
+or, if you have `utf8` installed (like via `luarocks install utf8`):
+
+```
+luajit source/braille.lua <width> <height> <algo>
+```
+
 #### Love2d
 
 There are 2 output helpers for love. One is [source/maze/love/rect.lua](source/maze/love/rect.lua) for using rectangle shape-primitive, and the other is [source/maze/love/tile.lua](source/maze/love/tile.lua) for using images. If you need a maze that is bigger than the screen, I highly recommend [hump's camera](https://hump.readthedocs.io/en/latest/camera.html). Basically just draw the entire maze, then `lookAt` where your player is currently.

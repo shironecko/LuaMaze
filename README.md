@@ -127,7 +127,7 @@ To test it, run `love source`.
 
 You can also rename [source/main_tile.lua](source/main_tile.lua) to `main.lua` and see the same example using tile-images instead of rectangles. Setup your tile-image at any size, with 5 square sub-images: N, S, W, E, floor which will be composited together.
 
-Here is an exmaple:
+Here is an example tile image:
 
 ![](source/assets/maze.png)
 

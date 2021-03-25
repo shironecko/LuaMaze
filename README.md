@@ -88,7 +88,11 @@ There are 2 output helpers for love. One is [source/maze/love/rect.lua](source/m
 
 To test it, run `love source`.
 
-You can also rename source/main_tile.lua](source/main_tile.lua) to `main.lua` and see the same example using tile-images instead of rectangles. Setup your tile-image at any size, with 5 square sub-images: N, S, W, E, floor which will be composited together.
+You can also rename [source/main_tile.lua](source/main_tile.lua) to `main.lua` and see the same example using tile-images instead of rectangles. Setup your tile-image at any size, with 5 square sub-images: N, S, W, E, floor which will be composited together.
+
+Here is an exmaple:
+
+![](source/assets/maze.png)
 
 ### Sources of knowledge and inspiration
 

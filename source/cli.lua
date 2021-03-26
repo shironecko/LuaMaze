@@ -24,7 +24,7 @@ local Maze = requireRel('maze.init')
 
 local maze = Maze:new(width, height, true)
 
--- maek sure random is more random
+-- make sure random is more random
 math.randomseed(os.time())
 
 -- call the selected generator on the maze

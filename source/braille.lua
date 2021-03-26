@@ -46,6 +46,9 @@ NE is
 ⠉⢹
 ]]
 
+-- simple function to add bitwise flags, if they are not already set
+-- pa is a table (array) and x is the number to add the flags to
+-- returns X with bitwise flags enabled
 function setbits(x, pa)
   for _,p in pairs(pa) do
     local hasbit = x % (p + p) >= p
@@ -88,7 +91,7 @@ local height = arg[2] or 10
 local algo = arg[3] or "recursive_backtracker"
 local maze = Maze:new(width, height, true)
 
--- maek sure random is more random
+-- make sure random is more random
 math.randomseed(os.time())
 
 -- call the selected generator on the maze

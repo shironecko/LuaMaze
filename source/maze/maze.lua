@@ -22,7 +22,7 @@ function Maze:new( width, height, closed, obj )
     for x = 1, width do
       obj[y][x] = { east = obj:CreateDoor(closed), south = obj:CreateDoor(closed)}
       
-      -- Doors are shared beetween the cells to avoid out of sync conditions and data dublication
+      -- Doors are shared between the cells to avoid out of sync conditions and data duplication
       if x ~= 1 then obj[y][x].west = obj[y][x - 1].east
       else obj[y][x].west = obj:CreateDoor(closed) end
       

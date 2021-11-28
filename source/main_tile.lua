@@ -63,7 +63,11 @@ function love.draw()
 end
 
 function love.keypressed(key)
-  list:key(key, true)
+  if key == 'q' or key == 'escape' then
+    love.event.quit()
+  else
+    list:key(key, true)
+  end
 end
 
 function love.wheelmoved(x, y)

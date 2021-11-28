@@ -9,16 +9,21 @@ local image
 local algo = "aldous_broder"
 local time = 0
 
+local function regenerate_maze(a)
+  algo = a
+  local t = os.clock()
+  Maze.generators[algo](maze)
+  time = os.clock() - t
+  batches = Maze.love.tile:setup(maze, image)
+end
+
 function love.load()
   love.window.setTitle("LuaMaze")
   math.randomseed(os.time())
   maze = Maze:new(17, 18, true)
-  local t = os.clock()
-  Maze.generators[algo](maze)
-  time = os.clock() - t
-
   image = love.graphics.newImage("assets/maze.png")
-  batches = Maze.love.tile:setup(maze, image)
+  regenerate_maze(algo)
+
 
   local tlist = {
     selected=1,
@@ -69,10 +74,6 @@ function love.update(dt)
   list:update(dt)
   local a = list:getdata(list:getselected())
   if a ~= algo then
-    algo = a
-    local t = os.clock()
-    Maze.generators[algo](maze)
-    time = os.clock() - t
-    batches = Maze.love.tile:setup(maze, image)
+    regenerate_maze(a)
   end
 end

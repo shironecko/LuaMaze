@@ -81,6 +81,118 @@ function Maze:ResetVisited()
   end
 end
 
+local function walls_to_string(self)
+  local str = ""
+  for y=1,self.height do
+    local line = ""
+    for x=1,self.width do
+      local c = self.walls[x][y] and '█' or ' '
+      line = line .. c
+    end
+    str = str .. line .. '\n'
+  end
+  return str
+end
+
+
+-- Create a table for building walls as tiles -- each position is a wall or is
+-- not a wall. Useful for bitmasked tilesets
+-- (https://gamedevelopment.tutsplus.com/tutorials/how-to-use-tile-bitmasking-to-auto-tile-your-level-layouts--cms-25673)
+-- table contents: {
+--   walls: table where t[x][y] is a whether a wall.
+--   width: width of walls table.
+--   height: width of walls table.
+--   tostring: build a string to visualize the tiles.
+-- }
+function Maze:AsTileLayout(closed)
+  local data = {}
+
+  local w = self:width() * 2 + 1
+  local h = self:height() * 2 + 1
+  for x = 1, w do
+    data[x] = {}
+    for y = 1, h do
+      data[x][y] = closed
+    end
+  end
+
+  local function safe_set(x,y, val)
+    if data[x] then
+      data[x][y] = val
+    end
+  end
+      
+  for col = 1, self:width() do
+    for row = 1, self:height() do
+      local room = self[row][col]
+      local x,y = col*2, row*2
+      data[x][y] = false
+      safe_set(x,   y-1, room.north:IsClosed())
+      safe_set(x-1, y,   room.west:IsClosed())
+      safe_set(x,   y+1, room.south:IsClosed())
+      safe_set(x+1, y,   room.east:IsClosed())
+    end
+  end
+
+  return { walls = data, width = w, height = h, tostring = walls_to_string, }
+end
+
+local function test_AsTileLayout()
+  local m = Maze:new(4, 8)
+  m[1][1].north:Close()
+  m[1][1].south:Close()
+  m[1][1].east:Close()
+  m[1][1].west:Close()
+
+  local w = m:AsTileLayout(true)
+
+  --~ print() print(w:tostring())
+
+  for i=1,3 do
+    -- top
+    assert(w.walls[i][1])
+    assert(w.walls[i][1])
+    assert(w.walls[i][1])
+
+    -- bottom
+    assert(w.walls[i][3])
+    assert(w.walls[i][3])
+    assert(w.walls[i][3])
+  end
+  -- sides
+  assert(w.walls[1][2])
+  assert(w.walls[3][2])
+
+  m:ResetDoors()
+  m[6][1].north:Close()
+  m[6][1].west:Close()
+  m[6][1].east:Close()
+  m[7][1].west:Close()
+  m[7][1].east:Close()
+  m[8][1].west:Close()
+  m[8][1].south:Close()
+  m[8][2].north:Close()
+  m[8][2].south:Close()
+  m[8][2].east:Close()
+  w = m:AsTileLayout(true)
+  
+  --~ print() print(w:tostring())
+
+  -- vertical path
+  for i=12,12+4 do
+    assert(w.walls[1][i], i) -- wall
+    assert(w.walls[2][i] == false, i) -- path
+    assert(w.walls[3][i] or i == 16, i) -- wall
+  end
+  -- horizontal path
+  for i=2,2+2 do
+    assert(w.walls[i][15] or i == 2, i)
+    assert(w.walls[i][16] == false, i)
+    assert(w.walls[i][17], i)
+  end
+end
+
+
 function Maze.tostring(maze, wall, passage)
   wall = wall or "#"
   passage = passage or " "

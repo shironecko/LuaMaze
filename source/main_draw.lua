@@ -6,12 +6,35 @@ local list = require "listbox"
 local maze
 local algo = "aldous_broder"
 local time = 0
+local walls
+local should_draw_walls
+
+local function draw_walls(root_x, root_y, w)
+  local color = {
+    [true] = {0.1,0.1,0.1,1},
+    [false] = {0.5,0.9,0.9,1},
+  }
+  -- x,y start at 1 so they'll push us off by one width. Shift back to make the
+  -- math easier.
+  root_x = root_x - w
+  root_y = root_y - w
+  for y=1,walls.height do
+    for x=1,walls.width do
+      local is_wall = walls.walls[x][y]
+      love.graphics.setColor(unpack(color[is_wall]))
+      local px,py = root_x + x * w, root_y + y * w
+      love.graphics.rectangle('fill', px, py, w, w)
+    end
+  end
+end
 
 local function regenerate_maze(a)
   algo = a
   local t = os.clock()
   Maze.generators[algo](maze)
   time = os.clock() - t
+
+  walls = maze:AsTileLayout(true)
 end
 
 function love.load()
@@ -54,11 +77,16 @@ function love.draw()
   list:draw()
   Maze.love.rect(maze, 10, 10, 20, 10, { 0.58, 0.58, 0.78 }, { 0.07, 0.07, 0.39 })
   love.graphics.printf(string.format("took %fms", time), 550, 220, 230 )
+  if should_draw_walls then
+    draw_walls(5, 5, 15)
+  end
 end
 
 function love.keypressed(key)
   if key == 'q' or key == 'escape' then
     love.event.quit()
+  elseif key == 'space' then
+    should_draw_walls = not should_draw_walls
   else
     list:key(key, true)
   end

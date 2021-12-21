@@ -77,9 +77,18 @@ function love.draw()
   list:draw()
   Maze.love.rect(maze, 10, 10, 20, 10, { 0.58, 0.58, 0.78 }, { 0.07, 0.07, 0.39 })
   love.graphics.printf(string.format("took %fms", time), 550, 220, 230 )
+  local controls = [[Controls:
+q - quit
+space - toggle AsTileLayout display
+]]
   if should_draw_walls then
+    controls = controls .. [[k - RemoveDeadEnds
+l - ExpandRooms
+]]
     draw_walls(5, 5, 15)
   end
+  love.graphics.setColor(1,1,1,1)
+  love.graphics.printf(controls, 550, 260, 230)
 end
 
 function love.keypressed(key)
@@ -87,6 +96,12 @@ function love.keypressed(key)
     love.event.quit()
   elseif key == 'space' then
     should_draw_walls = not should_draw_walls
+  elseif key == 'k' then
+    print("RemoveDeadEnds")
+    walls:RemoveDeadEnds()
+  elseif key == 'l' then
+    print("ExpandRooms")
+    walls:ExpandRooms()
   else
     list:key(key, true)
   end

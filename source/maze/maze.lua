@@ -95,6 +95,81 @@ local function walls_to_string(self)
 end
 
 
+local function RemoveDeadEnds(walls)
+  local to_fill = {}
+  for y = 1, walls.height do
+    for x = 1, walls.width do
+      local count = 0
+      for _,shift in pairs(Maze.directions) do
+        local col = walls.walls[x + shift.x]
+        local is_wall = col and col[y + shift.y]
+        if is_wall then
+          count = count + 1
+        end
+      end
+      if count == 3 then
+        table.insert(to_fill, { x = x, y = y, })
+      end
+    end
+  end
+  for _,pos in ipairs(to_fill) do
+    walls.walls[pos.x][pos.y] = true
+  end
+end
+
+local function ExpandRooms(walls, threshold)
+  -- 4 is a good threshold for general expanding and 5 will eliminates single
+  -- cell nubs.
+  threshold = threshold or 4
+  local eightway = {
+    north = { x = 0,  y = -1 },
+    east  = { x = 1,  y = 0 },
+    south = { x = 0,  y = 1 },
+    west  = { x = -1, y = 0 },
+    ne    = { x = 1,  y = -1 },
+    nw    = { x = -1, y = -1 },
+    se    = { x = 1,  y = 1 },
+    sw    = { x = -1, y = 1 },
+  }
+  local growth = {}
+  for y = 1, walls.height do
+    for x = 1, walls.width do
+      if walls.walls[x][y] then
+        local count = 0
+        for _,shift in pairs(eightway) do
+          local col = walls.walls[x + shift.x] or nil
+          local cell = col and col[y + shift.y] or nil
+          local is_wall = col == nil or cell
+          if not is_wall then
+            count = count + 1
+          end
+        end
+        if count >= threshold then
+          table.insert(growth, { x = x, y = y, count = count, })
+        end
+      end
+    end
+  end
+  for _,pos in ipairs(growth) do
+    walls.walls[pos.x][pos.y] = false
+  end
+  if walls.closed then
+    walls:EnsureBorder()
+  end
+end
+
+local function EnsureBorder(walls)
+  for x = 1, walls.width do
+    walls.walls[x][1] = true
+    walls.walls[x][walls.height] = true
+  end
+  for y = 1, walls.height do
+    walls.walls[1][y] = true
+    walls.walls[walls.width][y] = true
+  end
+end
+
+
 -- Create a table for building walls as tiles -- each position is a wall or is
 -- not a wall. Useful for bitmasked tilesets
 -- (https://gamedevelopment.tutsplus.com/tutorials/how-to-use-tile-bitmasking-to-auto-tile-your-level-layouts--cms-25673)
@@ -134,7 +209,13 @@ function Maze:AsTileLayout(closed)
     end
   end
 
-  return { walls = data, width = w, height = h, tostring = walls_to_string, }
+  return { walls = data, width = w, height = h,
+    closed = closed,
+    tostring = walls_to_string,
+    RemoveDeadEnds = RemoveDeadEnds,
+    ExpandRooms = ExpandRooms,
+    EnsureBorder = EnsureBorder,
+  }
 end
 
 local function test_AsTileLayout()
@@ -190,6 +271,86 @@ local function test_AsTileLayout()
     assert(w.walls[i][16] == false, i)
     assert(w.walls[i][17], i)
   end
+end
+
+local function test_RemoveDeadEnds()
+  local m = Maze:new(4, 8)
+  m[6][1].north:Close()
+  m[6][1].west:Close()
+  m[6][1].east:Close()
+  m[7][1].west:Close()
+  m[7][1].east:Close()
+  m[8][1].west:Close()
+  m[8][1].south:Close()
+  m[8][2].north:Close()
+  m[8][2].south:Close()
+  m[8][2].east:Close()
+
+  local w = m:AsTileLayout(true)
+
+  --~ print() print(w:tostring())
+
+  assert(w.walls[2][11] == true, "expected dead end wall")
+  assert(w.walls[2][12] == false, "expected path, dead end")
+  assert(w.walls[2][13] == false, "expected path")
+
+  assert(w.walls[5][16] == true, "expected dead end wall")
+  assert(w.walls[4][16] == false, "expected path, dead end")
+  assert(w.walls[3][16] == false, "expected path")
+
+  w:RemoveDeadEnds()
+
+  assert(w.walls[2][11] == true, "expected still dead end wall")
+  assert(w.walls[2][12] == true, "expected filled")
+  assert(w.walls[2][13] == false, "expected still path")
+
+  assert(w.walls[5][16] == true, "expected still dead end wall")
+  assert(w.walls[4][16] == true, "expected filled")
+  assert(w.walls[3][16] == false, "expected still path")
+  
+  --~ print() print(w:tostring())
+end
+
+local function test_ExpandRooms()
+  -- Must make maze closed so we don't clear everything.
+  local m = Maze:new(4, 8, true)
+  m[6][1].south:Open()
+  m[7][1].north:Open()
+  m[7][1].south:Open()
+  m[8][1].north:Open()
+  m[8][1].east:Open()
+
+  local w = m:AsTileLayout(true)
+
+  --~ print() print(w:tostring())
+
+  assert(w.walls[2][14] == false, "expected path")
+  assert(w.walls[3][16] == false, "expected path")
+
+  assert(w.walls[2][11] == true, "expected dead end wall")
+  assert(w.walls[2][12] == false, "expected path, dead end")
+  assert(w.walls[2][13] == false, "expected path")
+
+  assert(w.walls[5][16] == true, "expected dead end wall")
+  assert(w.walls[4][16] == false, "expected path, dead end")
+  assert(w.walls[3][16] == false, "expected path")
+
+  w:ExpandRooms()
+
+  assert(w.walls[2][14] == false, "expected still path")
+  assert(w.walls[3][16] == false, "expected still path")
+  
+  assert(w.walls[2][11] == true, "expected still dead end wall")
+  assert(w.walls[2][12] == false, "expected still dead end path")
+  assert(w.walls[2][13] == false, "expected still path")
+  assert(w.walls[3][13] == false, "expected cleared")
+
+  assert(w.walls[5][16] == true, "expected still dead end wall")
+  assert(w.walls[4][16] == false, "expected cleared")
+  assert(w.walls[3][16] == false, "expected still path")
+  assert(w.walls[3][15] == false, "expected cleared")
+  
+  --~ print() print(w:tostring())
 end
 
 

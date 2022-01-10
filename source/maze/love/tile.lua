@@ -16,11 +16,11 @@ function LoveTileMaze:setup(maze, image)
   local batches = {}
   
   for k,v in pairs(tiles) do
-    batches[k] = love.graphics.newSpriteBatch(image, #maze*#maze[1] )
+    batches[k] = love.graphics.newSpriteBatch(image, maze:height()*maze:width() )
   end
   
-  for yi = 1, #maze do
-    for xi = 1, #maze[1] do
+  for yi = 1, maze:height() do
+    for xi = 1, maze:width() do
       batches.floor:add( tiles.floor, (xi-1) * tile_size, (yi-1) * tile_size)     
       if maze[yi][xi].north:IsClosed() then
         batches.N:add( tiles.N, (xi-1) * tile_size, (yi-1) * tile_size)
